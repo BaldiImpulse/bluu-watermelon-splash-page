@@ -1,10 +1,12 @@
+
 import React, { useState } from 'react';
-import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play } from 'lucide-react';
+import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
 
 const Index = () => {
@@ -12,6 +14,17 @@ const Index = () => {
   const [email, setEmail] = useState('');
   const [cep, setCep] = useState('');
   const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      name: 'Bluu Hidratação Melancia',
+      price: 89.90,
+      originalPrice: 179.90,
+      quantity: 2,
+      image: '/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png'
+    }
+  ]);
 
   const flavors = [
     { id: 'melancia', name: 'Melancia', available: true },
@@ -20,6 +33,13 @@ const Index = () => {
     { id: 'limao', name: 'Limão Siciliano', available: false },
     { id: 'tropical', name: 'Frutas Tropicais', available: false }
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const handleNotifyMe = () => {
     if (email) {
@@ -41,6 +61,28 @@ const Index = () => {
     }
   };
 
+  const handleAddToCart = () => {
+    setIsCartOpen(true);
+    toast({
+      title: "Produto adicionado ao carrinho!",
+      description: "Bluu Hidratação Melancia foi adicionado com sucesso.",
+    });
+  };
+
+  const updateQuantity = (id: number, newQuantity: number) => {
+    if (newQuantity === 0) {
+      setCartItems(cartItems.filter(item => item.id !== id));
+    } else {
+      setCartItems(cartItems.map(item => 
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      ));
+    }
+  };
+
+  const getSubtotal = () => {
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Top Bar */}
@@ -58,29 +100,44 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="text-3xl font-bold text-[#D1447D]">Bluu</div>
             
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-gray-700 hover:text-[#D1447D] transition-colors">Produtos</a>
-              <a href="#" className="text-gray-700 hover:text-[#D1447D] transition-colors">Como Funciona</a>
-              <a href="#" className="text-gray-700 hover:text-[#D1447D] transition-colors">Depoimentos</a>
-              <a href="#" className="text-gray-700 hover:text-[#D1447D] transition-colors">FAQ</a>
-              <a href="#" className="text-gray-700 hover:text-[#D1447D] transition-colors">Blog</a>
+            <nav className="flex items-center space-x-8">
+              <button 
+                onClick={() => scrollToSection('hero')}
+                className="text-gray-700 hover:text-[#D1447D] transition-colors"
+              >
+                Produtos
+              </button>
+              <button 
+                onClick={() => scrollToSection('benefits')}
+                className="text-gray-700 hover:text-[#D1447D] transition-colors"
+              >
+                Como Funciona
+              </button>
+              <button 
+                onClick={() => scrollToSection('testimonials')}
+                className="text-gray-700 hover:text-[#D1447D] transition-colors"
+              >
+                Depoimentos
+              </button>
+              <button 
+                onClick={() => scrollToSection('faq')}
+                className="text-gray-700 hover:text-[#D1447D] transition-colors"
+              >
+                FAQ
+              </button>
+              <button 
+                onClick={() => scrollToSection('newsletter')}
+                className="text-gray-700 hover:text-[#D1447D] transition-colors"
+              >
+                Blog
+              </button>
             </nav>
-
-            <div className="flex items-center space-x-4">
-              <Search className="w-5 h-5 text-gray-600 cursor-pointer hover:text-[#D1447D]" />
-              <User className="w-5 h-5 text-gray-600 cursor-pointer hover:text-[#D1447D]" />
-              <Droplets className="w-5 h-5 text-gray-600 cursor-pointer hover:text-[#D1447D]" />
-              <div className="relative">
-                <ShoppingBag className="w-5 h-5 text-gray-600 cursor-pointer hover:text-[#D1447D]" />
-                <span className="absolute -top-2 -right-2 bg-[#D1447D] text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">0</span>
-              </div>
-            </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-pink-50">
+      <section id="hero" className="py-16 bg-gradient-to-br from-blue-50 to-pink-50">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Product Image */}
@@ -145,7 +202,10 @@ const Index = () => {
 
               {/* CTA Buttons */}
               <div className="space-y-4">
-                <Button className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white py-3 text-lg font-semibold">
+                <Button 
+                  onClick={handleAddToCart}
+                  className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white py-3 text-lg font-semibold"
+                >
                   ADICIONAR AO CARRINHO
                 </Button>
                 <a href="#" className="block text-center text-[#D1447D] hover:underline">
@@ -199,7 +259,7 @@ const Index = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16">
+      <section id="benefits" className="py-16">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Por que escolher Bluu Melancia?
@@ -266,35 +326,106 @@ const Index = () => {
       </section>
 
       {/* Social Proof */}
-      <section className="py-16 bg-[#F3C4EB]/10">
+      <section id="testimonials" className="py-16 bg-gradient-to-br from-[#A8D0E6]/20 via-white to-[#F3C4EB]/20">
         <div className="container mx-auto max-w-6xl px-4 text-center">
+          <div className="mb-8">
+            <Badge className="bg-green-100 text-green-800 px-4 py-2 mb-4">
+              ✅ Mais de 60.000 clientes satisfeitos
+            </Badge>
+          </div>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            A hidratação saborizada que conquistou mais de 60.000 clientes
+            A hidratação saborizada que conquistou o Brasil
           </h2>
           <p className="text-xl text-gray-600 mb-12">
             Bluu é citado em +1.000 reviews 5★ como "o empurrãozinho perfeito para beber água".
           </p>
-          <div className="grid md:grid-cols-3 gap-8">
+          
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
             {[
-              { name: 'Paula', context: 'praia', emoji: '🏖️' },
-              { name: 'Gabriel', context: 'escritório', emoji: '💼' },
-              { name: 'Juliana', context: 'academia', emoji: '🏋️‍♀️' }
+              { 
+                name: 'Paula Silva', 
+                location: 'Rio de Janeiro, RJ',
+                context: 'Praia de Copacabana', 
+                emoji: '🏖️',
+                review: 'Bluu mudou minha relação com a água! Agora consigo beber os 2L recomendados sem esforço. Levo sempre para a praia.',
+                verified: true,
+                date: 'Há 2 semanas'
+              },
+              { 
+                name: 'Gabriel Santos', 
+                location: 'São Paulo, SP',
+                context: 'Executivo de Marketing', 
+                emoji: '💼',
+                review: 'Trabalho 10h por dia e sempre esquecia de me hidratar. Com Bluu, virou hábito automático. Recomendo 100%!',
+                verified: true,
+                date: 'Há 1 mês'
+              },
+              { 
+                name: 'Juliana Costa', 
+                location: 'Belo Horizonte, MG',
+                context: 'Personal Trainer', 
+                emoji: '🏋️‍♀️',
+                review: 'Uso com meus alunos há 6 meses. Zero açúcar, sabor incrível e hidratação perfeita pós-treino. Aprovadíssimo!',
+                verified: true,
+                date: 'Há 3 semanas'
+              }
             ].map((person, index) => (
-              <Card key={index}>
+              <Card key={index} className="relative overflow-hidden border-2 border-transparent hover:border-[#D1447D]/20 transition-all duration-300 hover:shadow-xl">
                 <CardContent className="p-6">
+                  <div className="absolute top-4 right-4">
+                    {person.verified && (
+                      <div className="flex items-center space-x-1">
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                        <span className="text-xs text-green-600 font-medium">Verificado</span>
+                      </div>
+                    )}
+                  </div>
+                  
                   <div className="text-4xl mb-4">{person.emoji}</div>
-                  <p className="text-gray-600 mb-4">
-                    "Bluu mudou minha relação com a água. Agora consigo beber os 2L recomendados sem esforço!"
-                  </p>
-                  <div className="flex items-center justify-center">
+                  
+                  <div className="flex items-center justify-center mb-4">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <p className="font-semibold text-gray-900 mt-2">{person.name}</p>
+                  
+                  <p className="text-gray-700 mb-4 italic leading-relaxed">
+                    "{person.review}"
+                  </p>
+                  
+                  <div className="border-t pt-4">
+                    <p className="font-bold text-gray-900">{person.name}</p>
+                    <p className="text-sm text-gray-600">{person.location}</p>
+                    <p className="text-xs text-gray-500 mt-1">{person.context} • {person.date}</p>
+                  </div>
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          <div className="bg-gradient-to-r from-[#D1447D]/10 to-[#A8D0E6]/10 rounded-2xl p-8">
+            <div className="flex items-center justify-center space-x-8 mb-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-[#D1447D]">4.9</div>
+                <div className="flex items-center justify-center">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <div className="text-sm text-gray-600">Avaliação média</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-[#D1447D]">1.247</div>
+                <div className="text-sm text-gray-600">Reviews totais</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-[#D1447D]">97%</div>
+                <div className="text-sm text-gray-600">Recomendariam</div>
+              </div>
+            </div>
+            <Badge className="bg-[#D1447D] text-white px-6 py-2">
+              🏆 Produto mais vendido da categoria
+            </Badge>
           </div>
         </div>
       </section>
@@ -352,7 +483,7 @@ const Index = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-16 bg-gray-50">
+      <section id="faq" className="py-16 bg-gray-50">
         <div className="container mx-auto max-w-4xl px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Perguntas Frequentes
@@ -394,7 +525,7 @@ const Index = () => {
       </section>
 
       {/* Newsletter */}
-      <section className="py-16 bg-[#D1447D]">
+      <section id="newsletter" className="py-16 bg-[#D1447D]">
         <div className="container mx-auto max-w-4xl px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Entre para o universo Bluu
@@ -459,6 +590,102 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Cart Modal */}
+      <Dialog open={isCartOpen} onOpenChange={setIsCartOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <span className="text-lg font-bold">Carrinho</span>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setIsCartOpen(false)}
+                className="p-0 h-auto"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+              <p className="text-sm text-green-800 font-medium flex items-center">
+                <CheckCircle className="w-4 h-4 mr-2" />
+                Parabéns! Você ganhou FRETE GRÁTIS 💚
+              </p>
+            </div>
+
+            {cartItems.map((item) => (
+              <div key={item.id} className="flex items-center space-x-3 p-4 border rounded-lg">
+                <img 
+                  src={item.image} 
+                  alt={item.name}
+                  className="w-16 h-16 object-cover rounded"
+                />
+                <div className="flex-1">
+                  <h3 className="font-medium text-sm">{item.name}</h3>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <span className="text-sm text-gray-500 line-through">
+                      R$ {item.originalPrice.toFixed(2)}
+                    </span>
+                    <span className="text-sm font-bold text-[#D1447D]">
+                      R$ {item.price.toFixed(2)}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-600">2 Unidades</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    className="h-8 w-8 p-0"
+                  >
+                    <Minus className="h-3 w-3" />
+                  </Button>
+                  <span className="text-sm font-medium w-8 text-center">{item.quantity}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    className="h-8 w-8 p-0"
+                  >
+                    <Plus className="h-3 w-3" />
+                  </Button>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => updateQuantity(item.id, 0)}
+                  className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                >
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              </div>
+            ))}
+
+            <div className="border-t pt-4">
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-semibold">Subtotal</span>
+                <span className="font-bold text-lg">R$ {getSubtotal().toFixed(2)}</span>
+              </div>
+              
+              <Button className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-3">
+                FINALIZAR COMPRA
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="w-full mt-2"
+                onClick={() => setIsCartOpen(false)}
+              >
+                ADICIONAR AO CARRINHO
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
