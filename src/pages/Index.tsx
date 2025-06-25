@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -86,14 +85,12 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Product Image */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-[#A8D0E6] to-[#F3C4EB] rounded-3xl p-8 shadow-2xl">
-                <div className="bg-[#D1447D] text-white p-8 rounded-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">🍉</div>
-                    <div className="text-xl font-bold">Bluu</div>
-                    <div className="text-sm">Hidratação Melancia</div>
-                  </div>
-                </div>
+              <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-3xl p-8">
+                <img 
+                  src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
+                  alt="Bluu Hidratação Melancia - Caixa do produto com melancia e cubos de gelo" 
+                  className="w-full max-w-md mx-auto drop-shadow-2xl"
+                />
               </div>
             </div>
 
@@ -232,12 +229,11 @@ const Index = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative">
               <div className="bg-white rounded-3xl p-8 shadow-xl">
-                <div className="text-8xl text-center mb-4">🍉</div>
-                <div className="flex justify-center space-x-2">
-                  <div className="w-4 h-4 bg-[#A8D0E6] rounded-full"></div>
-                  <div className="w-4 h-4 bg-[#D1447D] rounded-full"></div>
-                  <div className="w-4 h-4 bg-[#F3C4EB] rounded-full"></div>
-                </div>
+                <img 
+                  src="/lovable-uploads/5a437cbb-358f-4ea8-b4ad-f214512fb376.png" 
+                  alt="Bluu Hidratação Melancia - Sachê individual com fatia de melancia" 
+                  className="w-full max-w-sm mx-auto"
+                />
               </div>
             </div>
             
