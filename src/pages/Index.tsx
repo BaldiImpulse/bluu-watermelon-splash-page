@@ -156,8 +156,8 @@ const Index = () => {
                     className="w-full rounded-2xl object-cover"
                   />
                   <img 
-                    src="/lovable-uploads/0faa9051-90de-48c7-abe6-f853d97b7877.png" 
-                    alt="Dissolução efervescente Bluu com bolhas rosa" 
+                    src="/lovable-uploads/05e1589c-4d0f-4d71-8f95-691254a15e3e.png" 
+                    alt="Copo com Bluu melancia na beira da piscina com fatias de melancia" 
                     className="w-full rounded-2xl object-cover"
                   />
                 </div>
@@ -350,8 +350,8 @@ const Index = () => {
             <div className="relative">
               <div className="aspect-square bg-gradient-to-br from-pink-50 via-white to-blue-50 rounded-3xl overflow-hidden shadow-xl">
                 <img 
-                  src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Copo transparente com água saborizada Bluu de melancia com fatia de melancia ao lado"
+                  src="/lovable-uploads/505be2f2-8cbf-4d1f-9a2a-82608c47b606.png" 
+                  alt="Dissolução efervescente Bluu com bolhas rosa em água"
                   className="w-full h-full object-cover"
                 />
               </div>
