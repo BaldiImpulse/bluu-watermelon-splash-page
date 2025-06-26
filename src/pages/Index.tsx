@@ -156,8 +156,8 @@ const Index = () => {
                     className="w-full rounded-2xl object-cover"
                   />
                   <img 
-                    src="/lovable-uploads/a7311deb-414f-4fb5-bbf6-62df9c9216f3.png" 
-                    alt="Sachê Bluu com drink de melancia" 
+                    src="/lovable-uploads/0faa9051-90de-48c7-abe6-f853d97b7877.png" 
+                    alt="Dissolução efervescente Bluu com bolhas rosa" 
                     className="w-full rounded-2xl object-cover"
                   />
                 </div>
@@ -305,7 +305,7 @@ const Index = () => {
                   Transforme água em Bluu refrescante
                 </h2>
                 <p className="text-lg text-gray-600 leading-relaxed">
-                  Beba mais água com Bluu! É só adicionar um sachê Bluu em 500 ml de água gelada para viver uma explosão de sabor com zero açúcar e cheio de benefícios para sua saúde.
+                  Beba mais água com Bluu! É só adicionar um sachê Bluu em 500 ml de água gelada para viver uma explosão de sabor com zero açúcar e 0 kcal.
                 </p>
               </div>
 
@@ -547,10 +547,10 @@ const Index = () => {
             Informação Nutricional
           </h2>
           <div className="flex justify-center">
-            <Card className="max-w-md border-2 border-[#D3EAF9]">
+            <Card className="max-w-md border-2 border-[#D3EAF9]" style={{ maxWidth: '480px' }}>
               <CardContent className="p-6">
                 <h3 className="font-bold text-gray-900 mb-4 text-center">Por porção (500ml):</h3>
-                <div className="space-y-2 text-xs">
+                <div className="space-y-2" style={{ fontSize: '12px' }}>
                   <div className="flex justify-between">
                     <span>Calorias</span>
                     <span className="font-semibold">0 kcal</span>
@@ -577,7 +577,7 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="mt-6 pt-4 border-t">
-                  <p className="text-xs text-gray-600">
+                  <p style={{ fontSize: '12px', color: '#666' }}>
                     <strong>Ingredientes naturais:</strong> fibras de tapioca, aroma natural de melancia, sucralose, corante de beterraba. <strong>NÃO CONTÉM GLÚTEN.</strong>
                   </p>
                 </div>
@@ -663,7 +663,7 @@ const Index = () => {
             <div>
               <div className="text-2xl font-bold text-[#D1447D] mb-4">Bluu</div>
               <p className="text-gray-400">
-                Hidratação saborizada que transforma sua relação com a água.
+                Hidratação saborizada that transforma sua relação com a água.
               </p>
             </div>
             <div>
