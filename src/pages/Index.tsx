@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -152,12 +153,12 @@ const Index = () => {
                   <img 
                     src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
                     alt="Pessoa feliz segurando copo com Bluu" 
-                    className="w-full rounded-2xl"
+                    className="w-full rounded-2xl object-cover"
                   />
                   <img 
                     src="/lovable-uploads/a7311deb-414f-4fb5-bbf6-62df9c9216f3.png" 
                     alt="Sachê Bluu com drink de melancia" 
-                    className="w-full rounded-2xl"
+                    className="w-full rounded-2xl object-cover"
                   />
                 </div>
                 <img 
@@ -251,7 +252,7 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* CTA Buttons */}
+              {/* CTA Button */}
               <div className="space-y-4">
                 <Button 
                   onClick={handleAddToCart}
@@ -259,9 +260,6 @@ const Index = () => {
                 >
                   ADICIONAR AO CARRINHO
                 </Button>
-                <a href="#" className="block text-center text-[#D1447D] hover:underline">
-                  Assinar & economizar 15%
-                </a>
               </div>
             </div>
           </div>
@@ -377,7 +375,7 @@ const Index = () => {
               { icon: Droplets, title: 'Hidratação inteligente', desc: 'Água + sabor + nutrientes essenciais' },
               { icon: CheckCircle, title: 'Zero açúcar', desc: 'Adoçado com sucralose natural' },
               { icon: Zap, title: 'Praticidade absoluta', desc: 'Misture em qualquer lugar, a qualquer hora' },
-              { icon: Sun, title: 'Só 0 kcal', desc: 'Sabor sem culpa, hidratação sem peso' }
+              { icon: Sun, title: '0 kcal', desc: 'Sabor sem culpa, hidratação sem peso' }
             ].map((benefit, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
@@ -408,12 +406,12 @@ const Index = () => {
                 Refrescância que cabe no bolso
               </h2>
               <p className="text-xl text-gray-600">
-                Sabor de melancia geladinha, zero açúcar e só 0 kcal. Perfeito para o verão.
+                Sabor de melancia geladinha, zero açúcar e 0 kcal. Perfeito para o verão.
               </p>
               <div className="space-y-4">
                 {[
                   { icon: '💼', text: 'Para o seu dia a dia' },
-                  { icon: '⚡', text: 'Pick-me-up instantâneo' },
+                  { icon: '⚡', text: 'Vitaminas essenciais' },
                   { icon: '🌞', text: 'Saboroso e prático' },
                   { icon: '💧', text: 'Hidratação clean' }
                 ].map((item, index) => (
@@ -436,7 +434,7 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl px-4 text-center">
           <div className="mb-8">
             <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 mb-4 text-lg font-semibold shadow-lg">
-              ✅ Mais de 60.000 clientes satisfeitos
+              ✅ Clientes satisfeitos com a hidratação Bluu
             </Badge>
           </div>
           <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-[#D1447D] to-[#A8D0E6] bg-clip-text text-transparent">
@@ -451,7 +449,7 @@ const Index = () => {
               { 
                 name: 'Paula Silva', 
                 location: 'Rio de Janeiro, RJ',
-                context: 'Praia de Copacabana', 
+                context: 'Fisioterapeuta', 
                 emoji: '🏖️',
                 review: 'Bluu mudou minha relação com a água! Agora consigo beber os 2L recomendados sem esforço. Levo sempre para a praia.',
                 verified: true,
@@ -535,8 +533,8 @@ const Index = () => {
                 <div className="text-sm text-gray-600 font-medium">Recomendariam</div>
               </div>
             </div>
-            <Badge className="bg-gradient-to-r from-[#D1447D] to-[#B13A6B] text-white px-8 py-3 text-lg font-bold shadow-lg">
-              🏆 Produto mais vendido da categoria
+            <Badge className="bg-gradient-to-r from-[#D1447D] to-[#B13A6B] text-white px-8 py-3 text-2xl font-bold shadow-lg">
+              O produto que vem para mudar seu relacionamento com a água
             </Badge>
           </div>
         </div>
@@ -544,53 +542,48 @@ const Index = () => {
 
       {/* Nutritional Info */}
       <section className="py-16">
-        <div className="container mx-auto max-w-4xl px-4">
+        <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Informação Nutricional
           </h2>
-          <Card>
-            <CardContent className="p-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-4">Por porção (500ml):</h3>
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span>Calorias</span>
-                      <span className="font-semibold">0 kcal</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Carboidratos</span>
-                      <span className="font-semibold">1,3 g</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Açúcar</span>
-                      <span className="font-semibold">0 g</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Sódio</span>
-                      <span className="font-semibold">22 mg</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Potássio</span>
-                      <span className="font-semibold">65 mg</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Vitamina C</span>
-                      <span className="font-semibold">30 mg</span>
-                    </div>
+          <div className="flex justify-center">
+            <Card className="max-w-md border-2 border-[#D3EAF9]">
+              <CardContent className="p-6">
+                <h3 className="font-bold text-gray-900 mb-4 text-center">Por porção (500ml):</h3>
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between">
+                    <span>Calorias</span>
+                    <span className="font-semibold">0 kcal</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Carboidratos</span>
+                    <span className="font-semibold">1,3 g</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Açúcar</span>
+                    <span className="font-semibold">0 g</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sódio</span>
+                    <span className="font-semibold">22 mg</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Potássio</span>
+                    <span className="font-semibold">65 mg</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Vitamina C</span>
+                    <span className="font-semibold">30 mg</span>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-4">Ingredientes:</h3>
-                  <p className="text-gray-600 mb-4">
-                    Isomalto-oligossacarídeo, cítricos, sucralose, beterraba.
+                <div className="mt-6 pt-4 border-t">
+                  <p className="text-xs text-gray-600">
+                    <strong>Ingredientes naturais:</strong> fibras de tapioca, aroma natural de melancia, sucralose, corante de beterraba. <strong>NÃO CONTÉM GLÚTEN.</strong>
                   </p>
-                  <Badge className="bg-green-100 text-green-800">NÃO CONTÉM GLÚTEN</Badge>
-                  <p className="text-xs text-gray-500 mt-4">*VDs com base em 2000 kcal.</p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
