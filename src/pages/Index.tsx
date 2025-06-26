@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, Droplets, CheckCircle, Zap, Sun, X, Plus, Minus, Trash2 } from 'lucide-react';
+import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -143,83 +143,33 @@ const Index = () => {
 
       {/* Hero Section */}
       <section id="hero" className="py-16 bg-gradient-to-br from-blue-50 to-pink-50">
-        <div className="container mx-auto max-w-7xl px-4">
-          {/* New Grid Layout */}
-          <div className="gallery grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-6 mb-12"
-               style={{
-                 gridTemplateAreas: `
-                   "thumb1 hero hero ."
-                   "thumb2 hero hero copy"
-                   "thumb3 imgA imgB copy"
-                   ". imgC imgC copy"
-                 `
-               }}>
-            
-            {/* Thumbnail 1 - Close-up melancia fatiada */}
-            <div className="thumb1 hidden md:block" style={{ gridArea: 'thumb1' }}>
-              <img 
-                src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Close-up melancia fatiada" 
-                className="w-full h-32 object-cover rounded-2xl shadow-lg"
-              />
+        <div className="container mx-auto max-w-6xl px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Product Images */}
+            <div className="relative">
+              <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-3xl p-8">
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <img 
+                    src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
+                    alt="Pessoa feliz segurando copo com Bluu" 
+                    className="w-full rounded-2xl"
+                  />
+                  <img 
+                    src="/lovable-uploads/a7311deb-414f-4fb5-bbf6-62df9c9216f3.png" 
+                    alt="Sachê Bluu com drink de melancia" 
+                    className="w-full rounded-2xl"
+                  />
+                </div>
+                <img 
+                  src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
+                  alt="Bluu Hidratação Melancia - Caixa do produto com melancia e cubos de gelo" 
+                  className="w-full max-w-md mx-auto drop-shadow-2xl"
+                />
+              </div>
             </div>
 
-            {/* Thumbnail 2 - Close-up polpa da melancia */}
-            <div className="thumb2 hidden md:block" style={{ gridArea: 'thumb2' }}>
-              <img 
-                src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Close-up polpa da melancia" 
-                className="w-full h-32 object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-
-            {/* Thumbnail 3 - Close-up gotas d'água sobre casca */}
-            <div className="thumb3 hidden md:block" style={{ gridArea: 'thumb3' }}>
-              <img 
-                src="https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-                alt="Close-up gotas d'água sobre casca" 
-                className="w-full h-32 object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-
-            {/* Hero - Mock-up 3D da caixinha Bluu */}
-            <div className="hero bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-3xl p-8 flex items-center justify-center" style={{ gridArea: 'hero' }}>
-              <img 
-                src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
-                alt="Bluu Hidratação Melancia - Mock-up 3D da caixinha" 
-                className="w-full max-w-md drop-shadow-2xl"
-              />
-            </div>
-
-            {/* Image A - Sachê sendo despejado */}
-            <div className="imgA hidden md:block" style={{ gridArea: 'imgA' }}>
-              <img 
-                src="/lovable-uploads/a7311deb-414f-4fb5-bbf6-62df9c9216f3.png" 
-                alt="Sachê Bluu sendo despejado em copo com drink de melancia" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-
-            {/* Image B - Sachê + caixinha lado a lado */}
-            <div className="imgB hidden md:block" style={{ gridArea: 'imgB' }}>
-              <img 
-                src="/lovable-uploads/5a437cbb-358f-4ea8-b4ad-f214512fb376.png" 
-                alt="Sachê Bluu + caixinha lado a lado em close" 
-                className="w-full h-80 object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-
-            {/* Image C - Usuária sorrindo segurando sachê */}
-            <div className="imgC hidden md:block" style={{ gridArea: 'imgC' }}>
-              <img 
-                src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
-                alt="Pessoa feliz segurando copo com Bluu" 
-                className="w-full h-48 object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-
-            {/* Copy - Product Info */}
-            <div className="copy space-y-6" style={{ gridArea: 'copy' }}>
+            {/* Product Info */}
+            <div className="space-y-6">
               <div>
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">
                   Bluu Hidratação Saborizada – Melancia
@@ -314,30 +264,6 @@ const Index = () => {
                 </a>
               </div>
             </div>
-          </div>
-
-          {/* Mobile Images Row */}
-          <div className="md:hidden flex overflow-x-auto gap-4 mb-8 pb-4">
-            <img 
-              src="/lovable-uploads/a7311deb-414f-4fb5-bbf6-62df9c9216f3.png" 
-              alt="Sachê Bluu sendo despejado" 
-              className="w-24 h-24 flex-shrink-0 object-cover rounded-xl"
-            />
-            <img 
-              src="/lovable-uploads/5a437cbb-358f-4ea8-b4ad-f214512fb376.png" 
-              alt="Sachê + caixinha" 
-              className="w-24 h-24 flex-shrink-0 object-cover rounded-xl"
-            />
-            <img 
-              src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
-              alt="Pessoa feliz com Bluu" 
-              className="w-24 h-24 flex-shrink-0 object-cover rounded-xl"
-            />
-            <img 
-              src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
-              alt="Melancia fatiada" 
-              className="w-24 h-24 flex-shrink-0 object-cover rounded-xl"
-            />
           </div>
 
           {/* Lead Capture */}
@@ -819,7 +745,7 @@ const Index = () => {
                       R$ {item.price.toFixed(2)}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600">{item.quantity} Unidades</p>
+                  <p className="text-xs text-gray-600">2 Unidades</p>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Button
