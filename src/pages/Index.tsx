@@ -389,6 +389,79 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Bluu em Ação Section */}
+      <section className="py-20 bg-[#F8D0D8]/30">
+        <div className="container mx-auto max-w-6xl px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Bluu em Ação!
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Mais que hidratar: descubra como Bluu substitui o refri e ainda deixa suas receitas muito mais divertidas!
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Card 1 - Troque o Refrigerante */}
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img 
+                  src="/lovable-uploads/80f3bea2-f9e8-4ed6-8d03-8cfdf1b18e3b.png"
+                  alt="Copo alto com água com gás, cubos de gelo e Bluu efervescente"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Troque o Refrigerante
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Misture Bluu na água com gás. Uma alternativa incrivelmente saborosa e saudável para evitar o refrigerante...
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Card 2 - Drinks & Mocktails */}
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img 
+                  src="/lovable-uploads/0126cf3a-1512-4b08-93bd-360e4d74ba6a.png"
+                  alt="Taça com mocktail colorido, gelo e hortelã"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Drinks & Mocktails Insta-Ready
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Crie coquetéis sem culpa e surpreenda os amigos com cores naturais, refrescância e baixa calorias.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Card 3 - Picolés */}
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm md:col-span-2 lg:col-span-1">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img 
+                  src="/lovable-uploads/c307a0ce-6b24-419a-a3b7-ed55ab836b4e.png"
+                  alt="Picolés coloridos feitos com Bluu e frutas frescas"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                  Picolés Pop & Fresh
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Congele Bluu com pedaços de fruta para um snack leve e refrescante nos dias quentes.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Feel the Fresh Section */}
       <section className="py-16 bg-gradient-to-r from-[#A8D0E6]/40 to-[#F3C4EB]/40">
         <div className="container mx-auto max-w-6xl px-4">
