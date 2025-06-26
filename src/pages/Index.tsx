@@ -86,9 +86,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Top Bar */}
-      <div className="bg-[#A8D0E6] py-3">
-        <div className="container mx-auto text-center">
-          <p className="text-sm font-medium text-gray-800">
+      <div className="bg-[#A8D0E6] py-2 md:py-3">
+        <div className="container mx-auto text-center px-4">
+          <p className="text-xs md:text-sm font-medium text-gray-800">
             FRETE GRÁTIS PARA TODO O BRASIL NAS COMPRAS ACIMA DE R$ 199,90
           </p>
         </div>
@@ -96,11 +96,11 @@ const Index = () => {
 
       {/* Header */}
       <header className="border-b border-gray-100">
-        <div className="container mx-auto max-w-6xl px-4 py-4">
+        <div className="container mx-auto max-w-6xl px-4 py-3 md:py-4">
           <div className="flex items-center justify-between">
-            <div className="text-3xl font-bold text-[#D1447D]">Bluu</div>
+            <div className="text-2xl md:text-3xl font-bold text-[#D1447D]">Bluu</div>
             
-            <nav className="flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('hero')}
                 className="text-gray-700 hover:text-[#D1447D] transition-colors"
@@ -143,68 +143,68 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section id="hero" className="py-16 bg-gradient-to-br from-blue-50 to-pink-50">
+      <section id="hero" className="py-8 md:py-16 bg-gradient-to-br from-blue-50 to-pink-50">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Product Images */}
-            <div className="relative">
-              <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-3xl p-8">
-                <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="relative order-2 md:order-1">
+              <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-2xl md:rounded-3xl p-4 md:p-8">
+                <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
                   <img 
                     src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
                     alt="Pessoa feliz segurando copo com Bluu" 
-                    className="w-full rounded-2xl object-cover"
+                    className="w-full rounded-xl md:rounded-2xl object-cover"
                   />
                   <img 
                     src="/lovable-uploads/05e1589c-4d0f-4d71-8f95-691254a15e3e.png" 
                     alt="Copo com Bluu melancia na beira da piscina com fatias de melancia" 
-                    className="w-full rounded-2xl object-cover"
+                    className="w-full rounded-xl md:rounded-2xl object-cover"
                   />
                 </div>
                 <img 
                   src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
                   alt="Bluu Hidratação Melancia - Caixa do produto com melancia e cubos de gelo" 
-                  className="w-full max-w-md mx-auto drop-shadow-2xl"
+                  className="w-full max-w-xs md:max-w-md mx-auto drop-shadow-2xl"
                 />
               </div>
             </div>
 
             {/* Product Info */}
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6 order-1 md:order-2">
               <div>
-                <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 leading-tight">
                   Bluu Hidratação Saborizada – Melancia
                 </h1>
-                <div className="flex items-center space-x-2 mb-4">
+                <div className="flex items-center space-x-2 mb-3 md:mb-4">
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-3 h-3 md:w-4 md:h-4 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
-                  <span className="text-sm text-gray-600">4,9 (128 avaliações)</span>
+                  <span className="text-xs md:text-sm text-gray-600">4,9 (128 avaliações)</span>
                 </div>
-                <div className="flex items-center space-x-4 mb-4">
-                  <span className="text-3xl font-bold text-[#D1447D]">R$ 89,90</span>
-                  <Badge variant="secondary">12 porções</Badge>
+                <div className="flex items-center space-x-3 md:space-x-4 mb-3 md:mb-4">
+                  <span className="text-2xl md:text-3xl font-bold text-[#D1447D]">R$ 89,90</span>
+                  <Badge variant="secondary" className="text-xs">12 porções</Badge>
                 </div>
-                <p className="text-gray-600 mb-4">
+                <p className="text-sm md:text-base text-gray-600 mb-3 md:mb-4 leading-relaxed">
                   Transforme qualquer 500 ml de água em uma explosão refrescante sem adição de açúcar ou ingredientes artificiais. Rica em vitamina C antioxidante e sem glúten.
                 </p>
-                <p className="text-gray-600 mb-6 italic">
+                <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 italic leading-relaxed">
                   <strong>Sabor Melancia:</strong> Como morder uma melancia doce depois de um mergulho no mar salgado. Um sabor refrescante e matador da fruta mais suculenta do verão.
                 </p>
               </div>
 
               {/* Flavor Selector */}
-              <div className="space-y-4">
-                <h3 className="font-semibold text-gray-900">Escolha seu sabor:</h3>
+              <div className="space-y-3 md:space-y-4">
+                <h3 className="font-semibold text-gray-900 text-sm md:text-base">Escolha seu sabor:</h3>
                 <div className="flex flex-wrap gap-2">
                   {flavors.map((flavor) => (
                     <div key={flavor.id} className="relative">
                       <button
                         onClick={() => flavor.available && setSelectedFlavor(flavor.id)}
                         disabled={!flavor.available}
-                        className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
+                        className={`px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-medium transition-all ${
                           flavor.available
                             ? selectedFlavor === flavor.id
                               ? 'bg-[#D1447D] text-white'
@@ -225,28 +225,28 @@ const Index = () => {
 
               {/* Quantity Selector */}
               <div className="space-y-2">
-                <h3 className="font-semibold text-gray-900">Quantidade:</h3>
+                <h3 className="font-semibold text-gray-900 text-sm md:text-base">Quantidade:</h3>
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center border rounded-lg">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => quantity > 1 && setQuantity(quantity - 1)}
-                      className="h-10 w-10 p-0"
+                      className="h-8 w-8 md:h-10 md:w-10 p-0"
                     >
-                      <Minus className="h-4 w-4" />
+                      <Minus className="h-3 w-3 md:h-4 md:w-4" />
                     </Button>
-                    <span className="px-4 py-2 font-medium">{quantity}</span>
+                    <span className="px-3 md:px-4 py-2 font-medium text-sm md:text-base">{quantity}</span>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setQuantity(quantity + 1)}
-                      className="h-10 w-10 p-0"
+                      className="h-8 w-8 md:h-10 md:w-10 p-0"
                     >
-                      <Plus className="h-4 w-4" />
+                      <Plus className="h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                   </div>
-                  <span className="text-sm text-gray-600">
+                  <span className="text-xs md:text-sm text-gray-600">
                     {quantity > 1 ? `${quantity} unidades` : '1 unidade'}
                   </span>
                 </div>
@@ -256,7 +256,7 @@ const Index = () => {
               <div className="space-y-4">
                 <Button 
                   onClick={handleAddToCart}
-                  className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white py-3 text-lg font-semibold"
+                  className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white py-3 text-sm md:text-lg font-semibold"
                 >
                   ADICIONAR AO CARRINHO
                 </Button>
@@ -265,26 +265,26 @@ const Index = () => {
           </div>
 
           {/* Lead Capture */}
-          <div className="mt-16 bg-[#F3C4EB]/10 rounded-2xl p-8">
+          <div className="mt-12 md:mt-16 bg-[#F3C4EB]/10 rounded-2xl p-6 md:p-8">
             <div className="text-center max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">
                 Quer ser avisado quando os novos sabores chegarem?
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 leading-relaxed">
                 Digite seu e-mail e receba um cupom exclusivo assim que Pêssego, Romã, 
                 Limão Siciliano ou Frutas Tropicais estiverem disponíveis.
               </p>
-              <div className="flex space-x-4 max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 max-w-md mx-auto">
                 <Input
                   type="email"
                   placeholder="Seu melhor e-mail"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1"
+                  className="flex-1 text-sm"
                 />
                 <Button 
                   onClick={handleNotifyMe}
-                  className="bg-[#D1447D] hover:bg-[#B13A6B] text-white"
+                  className="bg-[#D1447D] hover:bg-[#B13A6B] text-white text-sm whitespace-nowrap"
                 >
                   QUERO SER AVISADO
                 </Button>
@@ -295,60 +295,60 @@ const Index = () => {
       </section>
 
       {/* How to Use Section - Transforme água em Bluu */}
-      <section id="how-to-use" className="py-20 bg-white">
+      <section id="how-to-use" className="py-12 md:py-20 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
             {/* Left Column - Content */}
-            <div className="space-y-8 lg:pr-8">
-              <div className="space-y-4">
-                <h2 className="text-4xl font-extrabold text-gray-900 leading-tight">
+            <div className="space-y-6 md:space-y-8 lg:pr-8">
+              <div className="space-y-3 md:space-y-4">
+                <h2 className="text-2xl md:text-4xl font-extrabold text-gray-900 leading-tight">
                   Transforme água em Bluu refrescante
                 </h2>
-                <p className="text-lg text-gray-600 leading-relaxed">
+                <p className="text-base md:text-lg text-gray-600 leading-relaxed">
                   Beba mais água com Bluu! É só adicionar um sachê Bluu em 500 ml de água gelada para viver uma explosão de sabor com zero açúcar e 0 kcal.
                 </p>
               </div>
 
               {/* Steps */}
-              <div className="space-y-6 mt-12">
+              <div className="space-y-4 md:space-y-6 mt-8 md:mt-12">
                 {/* Step 1 */}
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                    <Droplets className="w-6 h-6 text-blue-600" strokeWidth={2} />
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Droplets className="w-5 h-5 md:w-6 md:h-6 text-blue-600" strokeWidth={2} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">ÁGUA</h3>
-                    <p className="text-gray-600">Adicione 500 ml de água gelada</p>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">ÁGUA</h3>
+                    <p className="text-sm md:text-base text-gray-600">Adicione 500 ml de água gelada</p>
                   </div>
                 </div>
 
                 {/* Step 2 */}
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-purple-600 rounded-sm"></div>
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <div className="w-5 h-5 md:w-6 md:h-6 bg-purple-600 rounded-sm"></div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">SACHÊ</h3>
-                    <p className="text-gray-600">Abra e adicione o conteúdo de 1 stick Bluu</p>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">SACHÊ</h3>
+                    <p className="text-sm md:text-base text-gray-600">Abra e adicione o conteúdo de 1 stick Bluu</p>
                   </div>
                 </div>
 
                 {/* Step 3 */}
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl">😋</span>
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-pink-100 rounded-full flex items-center justify-center">
+                    <span className="text-xl md:text-2xl">😋</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">APROVEITE</h3>
-                    <p className="text-gray-600">Beba sua hidratação saborizada e curta o momento</p>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">APROVEITE</h3>
+                    <p className="text-sm md:text-base text-gray-600">Beba sua hidratação saborizada e curta o momento</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Right Column - Image */}
-            <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-pink-50 via-white to-blue-50 rounded-3xl overflow-hidden shadow-xl">
+            <div className="relative mt-8 lg:mt-0">
+              <div className="aspect-square bg-gradient-to-br from-pink-50 via-white to-blue-50 rounded-2xl md:rounded-3xl overflow-hidden shadow-xl">
                 <img 
                   src="/lovable-uploads/505be2f2-8cbf-4d1f-9a2a-82608c47b606.png" 
                   alt="Dissolução efervescente Bluu com bolhas rosa em água"
@@ -357,20 +357,20 @@ const Index = () => {
               </div>
               
               {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-[#D1447D] to-[#B13A6B] rounded-full opacity-20 animate-pulse"></div>
-              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-br from-[#A8D0E6] to-[#85C1E6] rounded-full opacity-30 animate-pulse delay-1000"></div>
+              <div className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-[#D1447D] to-[#B13A6B] rounded-full opacity-20 animate-pulse"></div>
+              <div className="absolute -bottom-3 -left-3 md:-bottom-6 md:-left-6 w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#A8D0E6] to-[#85C1E6] rounded-full opacity-30 animate-pulse delay-1000"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section id="benefits" className="py-16">
+      <section id="benefits" className="py-12 md:py-16">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 md:mb-12">
             Por que escolher Bluu Melancia?
           </h2>
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {[
               { icon: Droplets, title: 'Hidratação inteligente', desc: 'Água + sabor + nutrientes essenciais' },
               { icon: CheckCircle, title: 'Zero açúcar', desc: 'Adoçado com sucralose natural' },
@@ -378,10 +378,10 @@ const Index = () => {
               { icon: Sun, title: '0 kcal', desc: 'Sabor sem culpa, hidratação sem peso' }
             ].map((benefit, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <benefit.icon className="w-12 h-12 text-[#D1447D] mx-auto mb-4" />
-                  <h3 className="font-bold text-gray-900 mb-2">{benefit.title}</h3>
-                  <p className="text-gray-600 text-sm">{benefit.desc}</p>
+                <CardContent className="p-4 md:p-6">
+                  <benefit.icon className="w-10 h-10 md:w-12 md:h-12 text-[#D1447D] mx-auto mb-3 md:mb-4" />
+                  <h3 className="font-bold text-gray-900 mb-2 text-sm md:text-base">{benefit.title}</h3>
+                  <p className="text-gray-600 text-xs md:text-sm leading-relaxed">{benefit.desc}</p>
                 </CardContent>
               </Card>
             ))}
@@ -390,18 +390,18 @@ const Index = () => {
       </section>
 
       {/* Bluu em Ação Section */}
-      <section className="py-20 bg-[#F8D0D8]/30">
+      <section className="py-12 md:py-20 bg-[#F8D0D8]/30">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
               Bluu em Ação!
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Mais que hidratar: descubra como Bluu substitui o refri e ainda deixa suas receitas muito mais divertidas!
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {/* Card 1 - Troque o Refrigerante */}
             <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
               <div className="aspect-[4/3] overflow-hidden">
@@ -411,11 +411,11 @@ const Index = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <CardContent className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
                   Troque o Refrigerante
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                   Misture Bluu na água com gás. Uma alternativa incrivelmente saborosa e saudável para evitar o refrigerante...
                 </p>
               </CardContent>
@@ -430,11 +430,11 @@ const Index = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <CardContent className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
                   Drinks & Mocktails Insta-Ready
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                   Crie coquetéis sem culpa e surpreenda os amigos com cores naturais, refrescância e baixa calorias.
                 </p>
               </CardContent>
@@ -449,11 +449,11 @@ const Index = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <CardContent className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
                   Picolés Pop & Fresh
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                   Congele Bluu com pedaços de fruta para um snack leve e refrescante nos dias quentes.
                 </p>
               </CardContent>
@@ -463,25 +463,25 @@ const Index = () => {
       </section>
 
       {/* Feel the Fresh Section */}
-      <section className="py-16 bg-gradient-to-r from-[#A8D0E6]/40 to-[#F3C4EB]/40">
+      <section className="py-12 md:py-16 bg-gradient-to-r from-[#A8D0E6]/40 to-[#F3C4EB]/40">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="relative order-2 md:order-1">
               <img 
                 src="/lovable-uploads/5a437cbb-358f-4ea8-b4ad-f214512fb376.png" 
                 alt="Bluu Hidratação Melancia - Sachê individual com fatia de melancia" 
-                className="w-full max-w-sm mx-auto"
+                className="w-full max-w-xs md:max-w-sm mx-auto"
               />
             </div>
             
-            <div className="space-y-6">
-              <h2 className="text-4xl font-bold text-gray-900">
+            <div className="space-y-4 md:space-y-6 order-1 md:order-2">
+              <h2 className="text-2xl md:text-4xl font-bold text-gray-900">
                 Refrescância que cabe no bolso
               </h2>
-              <p className="text-xl text-gray-600">
+              <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
                 Sabor de melancia geladinha, zero açúcar e 0 kcal. Perfeito para o verão.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {[
                   { icon: '💼', text: 'Para o seu dia a dia' },
                   { icon: '⚡', text: 'Vitaminas essenciais' },
@@ -489,12 +489,12 @@ const Index = () => {
                   { icon: '💧', text: 'Hidratação clean' }
                 ].map((item, index) => (
                   <div key={index} className="flex items-center space-x-3">
-                    <span className="text-2xl">{item.icon}</span>
-                    <span className="text-gray-700 font-medium">{item.text}</span>
+                    <span className="text-xl md:text-2xl">{item.icon}</span>
+                    <span className="text-sm md:text-base text-gray-700 font-medium">{item.text}</span>
                   </div>
                 ))}
               </div>
-              <Button className="bg-white text-[#D1447D] border border-[#D1447D] hover:bg-[#D1447D] hover:text-white">
+              <Button className="bg-white text-[#D1447D] border border-[#D1447D] hover:bg-[#D1447D] hover:text-white text-sm md:text-base">
                 QUERO SENTIR ESSA FRESHNESS
               </Button>
             </div>
@@ -503,21 +503,21 @@ const Index = () => {
       </section>
 
       {/* Social Proof */}
-      <section id="testimonials" className="py-16 bg-gradient-to-br from-[#A8D0E6]/30 via-white to-[#F3C4EB]/30">
+      <section id="testimonials" className="py-12 md:py-16 bg-gradient-to-br from-[#A8D0E6]/30 via-white to-[#F3C4EB]/30">
         <div className="container mx-auto max-w-6xl px-4 text-center">
-          <div className="mb-8">
-            <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 mb-4 text-lg font-semibold shadow-lg">
+          <div className="mb-6 md:mb-8">
+            <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 md:px-6 py-2 md:py-3 mb-3 md:mb-4 text-sm md:text-lg font-semibold shadow-lg">
               ✅ Clientes satisfeitos com a hidratação Bluu
             </Badge>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-[#D1447D] to-[#A8D0E6] bg-clip-text text-transparent">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 bg-gradient-to-r from-[#D1447D] to-[#A8D0E6] bg-clip-text text-transparent">
             A hidratação saborizada que conquistou o Brasil
           </h2>
-          <p className="text-xl text-gray-600 mb-12">
+          <p className="text-base md:text-xl text-gray-600 mb-8 md:mb-12 leading-relaxed">
             Bluu é citado em +1.000 reviews 5★ como "o empurrãozinho perfeito para beber água".
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             {[
               { 
                 name: 'Paula Silva', 
@@ -554,59 +554,59 @@ const Index = () => {
               }
             ].map((person, index) => (
               <Card key={index} className={`relative overflow-hidden ${person.bg} ${person.border} border-2 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1`}>
-                <CardContent className="p-8">
-                  <div className="absolute top-4 right-4">
+                <CardContent className="p-4 md:p-8">
+                  <div className="absolute top-3 right-3 md:top-4 md:right-4">
                     {person.verified && (
-                      <div className="flex items-center space-x-1 bg-green-500 text-white px-3 py-1 rounded-full">
-                        <CheckCircle className="w-3 h-3" />
+                      <div className="flex items-center space-x-1 bg-green-500 text-white px-2 md:px-3 py-1 rounded-full">
+                        <CheckCircle className="w-2 h-2 md:w-3 md:h-3" />
                         <span className="text-xs font-medium">Verificado</span>
                       </div>
                     )}
                   </div>
                   
-                  <div className="text-5xl mb-6">{person.emoji}</div>
+                  <div className="text-3xl md:text-5xl mb-4 md:mb-6">{person.emoji}</div>
                   
-                  <div className="flex items-center justify-center mb-6">
+                  <div className="flex items-center justify-center mb-4 md:mb-6">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-4 h-4 md:w-6 md:h-6 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
                   
-                  <p className="text-gray-700 mb-6 italic leading-relaxed text-lg font-medium">
+                  <p className="text-gray-700 mb-4 md:mb-6 italic leading-relaxed text-sm md:text-lg font-medium">
                     "{person.review}"
                   </p>
                   
-                  <div className="border-t pt-6">
-                    <p className="font-bold text-gray-900 text-lg">{person.name}</p>
-                    <p className="text-sm text-gray-600 font-medium">{person.location}</p>
-                    <p className="text-xs text-gray-500 mt-2">{person.context} • {person.date}</p>
+                  <div className="border-t pt-4 md:pt-6">
+                    <p className="font-bold text-gray-900 text-base md:text-lg">{person.name}</p>
+                    <p className="text-xs md:text-sm text-gray-600 font-medium">{person.location}</p>
+                    <p className="text-xs text-gray-500 mt-1 md:mt-2">{person.context} • {person.date}</p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-[#D1447D]/15 via-[#A8D0E6]/15 to-[#F3C4EB]/15 rounded-3xl p-10 shadow-xl">
-            <div className="flex items-center justify-center space-x-12 mb-8">
+          <div className="bg-gradient-to-r from-[#D1447D]/15 via-[#A8D0E6]/15 to-[#F3C4EB]/15 rounded-2xl md:rounded-3xl p-6 md:p-10 shadow-xl">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8 md:space-x-12 mb-6 md:mb-8">
               <div className="text-center">
-                <div className="text-4xl font-bold text-[#D1447D] mb-2">4.9</div>
-                <div className="flex items-center justify-center mb-2">
+                <div className="text-2xl md:text-4xl font-bold text-[#D1447D] mb-1 md:mb-2">4.9</div>
+                <div className="flex items-center justify-center mb-1 md:mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-4 h-4 md:w-5 md:h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <div className="text-sm text-gray-600 font-medium">Avaliação média</div>
+                <div className="text-xs md:text-sm text-gray-600 font-medium">Avaliação média</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-[#D1447D] mb-2">1.247</div>
-                <div className="text-sm text-gray-600 font-medium">Reviews totais</div>
+                <div className="text-2xl md:text-4xl font-bold text-[#D1447D] mb-1 md:mb-2">1.247</div>
+                <div className="text-xs md:text-sm text-gray-600 font-medium">Reviews totais</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-[#D1447D] mb-2">97%</div>
-                <div className="text-sm text-gray-600 font-medium">Recomendariam</div>
+                <div className="text-2xl md:text-4xl font-bold text-[#D1447D] mb-1 md:mb-2">97%</div>
+                <div className="text-xs md:text-sm text-gray-600 font-medium">Recomendariam</div>
               </div>
             </div>
-            <Badge className="bg-gradient-to-r from-[#D1447D] to-[#B13A6B] text-white px-8 py-3 text-2xl font-bold shadow-lg">
+            <Badge className="bg-gradient-to-r from-[#D1447D] to-[#B13A6B] text-white px-4 md:px-8 py-2 md:py-3 text-base md:text-2xl font-bold shadow-lg">
               O produto que vem para mudar seu relacionamento com a água
             </Badge>
           </div>
@@ -614,16 +614,16 @@ const Index = () => {
       </section>
 
       {/* Nutritional Info */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 md:mb-12">
             Informação Nutricional
           </h2>
           <div className="flex justify-center">
             <Card className="max-w-md border-2 border-[#D3EAF9]" style={{ maxWidth: '480px' }}>
-              <CardContent className="p-6">
-                <h3 className="font-bold text-gray-900 mb-4 text-center">Por porção (500ml):</h3>
-                <div className="space-y-2" style={{ fontSize: '12px' }}>
+              <CardContent className="p-4 md:p-6">
+                <h3 className="font-bold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Por porção (500ml):</h3>
+                <div className="space-y-1 md:space-y-2" style={{ fontSize: '12px' }}>
                   <div className="flex justify-between">
                     <span>Calorias</span>
                     <span className="font-semibold">0 kcal</span>
@@ -649,7 +649,7 @@ const Index = () => {
                     <span className="font-semibold">30 mg</span>
                   </div>
                 </div>
-                <div className="mt-6 pt-4 border-t">
+                <div className="mt-4 md:mt-6 pt-3 md:pt-4 border-t">
                   <p style={{ fontSize: '12px', color: '#666' }}>
                     <strong>Ingredientes naturais:</strong> fibras de tapioca, aroma natural de melancia, sucralose, corante de beterraba. <strong>NÃO CONTÉM GLÚTEN.</strong>
                   </p>
@@ -661,12 +661,12 @@ const Index = () => {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-16 bg-gray-50">
+      <section id="faq" className="py-12 md:py-16 bg-gray-50">
         <div className="container mx-auto max-w-4xl px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 md:mb-12">
             Perguntas Frequentes
           </h2>
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
             {[
               {
                 q: "Como preparar o Bluu?",
@@ -690,10 +690,10 @@ const Index = () => {
               }
             ].map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left font-semibold text-gray-900">
+                <AccordionTrigger className="text-left font-semibold text-gray-900 text-sm md:text-base">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600">
+                <AccordionContent className="text-gray-600 text-sm md:text-base">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
@@ -703,25 +703,25 @@ const Index = () => {
       </section>
 
       {/* Newsletter */}
-      <section id="newsletter" className="py-16 bg-[#D1447D]">
+      <section id="newsletter" className="py-12 md:py-16 bg-[#D1447D]">
         <div className="container mx-auto max-w-4xl px-4 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">
             Entre para o universo Bluu
           </h2>
-          <p className="text-pink-100 mb-8">
+          <p className="text-pink-100 mb-6 md:mb-8 text-sm md:text-base leading-relaxed">
             Ganhe 10% de desconto na primeira compra e receba dicas exclusivas de hidratação
           </p>
-          <div className="flex space-x-4 max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 max-w-md mx-auto">
             <Input
               type="email"
               placeholder="Seu melhor e-mail"
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
-              className="flex-1 bg-white"
+              className="flex-1 bg-white text-sm"
             />
             <Button 
               onClick={handleNewsletter}
-              className="bg-white text-[#D1447D] hover:bg-gray-100"
+              className="bg-white text-[#D1447D] hover:bg-gray-100 text-sm whitespace-nowrap"
             >
               QUERO DESCONTO
             </Button>
@@ -730,40 +730,40 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 text-white py-8 md:py-12">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-2xl font-bold text-[#D1447D] mb-4">Bluu</div>
-              <p className="text-gray-400">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            <div className="sm:col-span-2 md:col-span-1">
+              <div className="text-xl md:text-2xl font-bold text-[#D1447D] mb-3 md:mb-4">Bluu</div>
+              <p className="text-gray-400 text-sm md:text-base leading-relaxed">
                 Hidratação saborizada that transforma sua relação com a água.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Produtos</h3>
-              <ul className="space-y-2 text-gray-400">
+              <h3 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Produtos</h3>
+              <ul className="space-y-1 md:space-y-2 text-gray-400 text-sm md:text-base">
                 <li><a href="#" className="hover:text-white">Melancia</a></li>
                 <li><a href="#" className="hover:text-white">Em breve</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Suporte</h3>
-              <ul className="space-y-2 text-gray-400">
+              <h3 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Suporte</h3>
+              <ul className="space-y-1 md:space-y-2 text-gray-400 text-sm md:text-base">
                 <li><a href="#" className="hover:text-white">FAQ</a></li>
                 <li><a href="#" className="hover:text-white">Contato</a></li>
                 <li><a href="#" className="hover:text-white">Trocas e Devoluções</a></li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Empresa</h3>
-              <ul className="space-y-2 text-gray-400">
+              <h3 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Empresa</h3>
+              <ul className="space-y-1 md:space-y-2 text-gray-400 text-sm md:text-base">
                 <li><a href="#" className="hover:text-white">Sobre</a></li>
                 <li><a href="#" className="hover:text-white">Blog</a></li>
                 <li><a href="#" className="hover:text-white">Carreiras</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8 mt-8 text-center text-gray-400">
+          <div className="border-t border-gray-800 pt-6 md:pt-8 mt-6 md:mt-8 text-center text-gray-400 text-sm md:text-base">
             <p>© Bluu 2025 – todos os direitos reservados</p>
           </div>
         </div>
@@ -774,7 +774,7 @@ const Index = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center justify-between">
-              <span className="text-lg font-bold">Carrinho</span>
+              <span className="text-base md:text-lg font-bold">Carrinho</span>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -788,74 +788,74 @@ const Index = () => {
           
           <div className="space-y-4">
             <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-              <p className="text-sm text-green-800 font-medium flex items-center">
-                <CheckCircle className="w-4 h-4 mr-2" />
+              <p className="text-xs md:text-sm text-green-800 font-medium flex items-center">
+                <CheckCircle className="w-3 h-3 md:w-4 md:h-4 mr-2" />
                 Parabéns! Você ganhou FRETE GRÁTIS 💚
               </p>
             </div>
 
             {cartItems.map((item) => (
-              <div key={item.id} className="flex items-center space-x-3 p-4 border rounded-lg">
+              <div key={item.id} className="flex items-center space-x-3 p-3 md:p-4 border rounded-lg">
                 <img 
                   src={item.image} 
                   alt={item.name}
-                  className="w-16 h-16 object-cover rounded"
+                  className="w-12 h-12 md:w-16 md:h-16 object-cover rounded"
                 />
                 <div className="flex-1">
-                  <h3 className="font-medium text-sm">{item.name}</h3>
+                  <h3 className="font-medium text-xs md:text-sm">{item.name}</h3>
                   <div className="flex items-center space-x-2 mt-1">
-                    <span className="text-sm text-gray-500 line-through">
+                    <span className="text-xs md:text-sm text-gray-500 line-through">
                       R$ {item.originalPrice.toFixed(2)}
                     </span>
-                    <span className="text-sm font-bold text-[#D1447D]">
+                    <span className="text-xs md:text-sm font-bold text-[#D1447D]">
                       R$ {item.price.toFixed(2)}
                     </span>
                   </div>
                   <p className="text-xs text-gray-600">2 Unidades</p>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 md:space-x-2">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                    className="h-8 w-8 p-0"
+                    className="h-6 w-6 md:h-8 md:w-8 p-0"
                   >
-                    <Minus className="h-3 w-3" />
+                    <Minus className="h-2 w-2 md:h-3 md:w-3" />
                   </Button>
-                  <span className="text-sm font-medium w-8 text-center">{item.quantity}</span>
+                  <span className="text-xs md:text-sm font-medium w-6 md:w-8 text-center">{item.quantity}</span>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                    className="h-8 w-8 p-0"
+                    className="h-6 w-6 md:h-8 md:w-8 p-0"
                   >
-                    <Plus className="h-3 w-3" />
+                    <Plus className="h-2 w-2 md:h-3 md:w-3" />
                   </Button>
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => updateQuantity(item.id, 0)}
-                  className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                  className="h-6 w-6 md:h-8 md:w-8 p-0 text-red-500 hover:text-red-700"
                 >
-                  <Trash2 className="h-3 w-3" />
+                  <Trash2 className="h-2 w-2 md:h-3 md:w-3" />
                 </Button>
               </div>
             ))}
 
             <div className="border-t pt-4">
               <div className="flex justify-between items-center mb-4">
-                <span className="font-semibold">Subtotal</span>
-                <span className="font-bold text-lg">R$ {getSubtotal().toFixed(2)}</span>
+                <span className="font-semibold text-sm md:text-base">Subtotal</span>
+                <span className="font-bold text-base md:text-lg">R$ {getSubtotal().toFixed(2)}</span>
               </div>
               
-              <Button className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-3">
+              <Button className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-2 md:py-3 text-sm md:text-base">
                 FINALIZAR COMPRA
               </Button>
               
               <Button 
                 variant="outline" 
-                className="w-full mt-2"
+                className="w-full mt-2 text-sm md:text-base"
                 onClick={() => setIsCartOpen(false)}
               >
                 ADICIONAR AO CARRINHO
