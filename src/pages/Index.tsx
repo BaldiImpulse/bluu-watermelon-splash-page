@@ -12,8 +12,8 @@ import { toast } from '@/hooks/use-toast';
 const Index = () => {
   const [selectedFlavor, setSelectedFlavor] = useState('melancia');
   const [email, setEmail] = useState('');
-  const [cep, setCep] = useState('');
   const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([
     {
@@ -140,9 +140,21 @@ const Index = () => {
       <section id="hero" className="py-16 bg-gradient-to-br from-blue-50 to-pink-50">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Product Image */}
+            {/* Product Images */}
             <div className="relative">
               <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-3xl p-8">
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <img 
+                    src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
+                    alt="Pessoa feliz segurando copo com Bluu" 
+                    className="w-full rounded-2xl"
+                  />
+                  <img 
+                    src="/lovable-uploads/a7311deb-414f-4fb5-bbf6-62df9c9216f3.png" 
+                    alt="Sachê Bluu com drink de melancia" 
+                    className="w-full rounded-2xl"
+                  />
+                </div>
                 <img 
                   src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
                   alt="Bluu Hidratação Melancia - Caixa do produto com melancia e cubos de gelo" 
@@ -169,9 +181,11 @@ const Index = () => {
                   <span className="text-3xl font-bold text-[#D1447D]">R$ 89,90</span>
                   <Badge variant="secondary">12 porções</Badge>
                 </div>
-                <p className="text-gray-600 mb-6">
-                  Transforme qualquer 500 ml de água em uma explosão refrescante de melancia. 
-                  Sem açúcar, zero corantes artificiais e apenas 5 kcal por porção.
+                <p className="text-gray-600 mb-4">
+                  Transforme qualquer 500 ml de água em uma explosão refrescante sem adição de açúcar ou ingredientes artificiais. Rica em vitamina C antioxidante e sem glúten.
+                </p>
+                <p className="text-gray-600 mb-6 italic">
+                  <strong>Sabor Melancia:</strong> Como morder uma melancia doce depois de um mergulho no mar salgado. Um sabor refrescante e matador da fruta mais suculenta do verão.
                 </p>
               </div>
 
@@ -191,12 +205,44 @@ const Index = () => {
                               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
-                        title={flavor.available ? '' : 'Disponível em breve :)'}
+                        title={flavor.available ? '' : 'Em breve'}
                       >
                         {flavor.name}
+                        {!flavor.available && (
+                          <span className="ml-1 text-xs opacity-70">- em breve</span>
+                        )}
                       </button>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* Quantity Selector */}
+              <div className="space-y-2">
+                <h3 className="font-semibold text-gray-900">Quantidade:</h3>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center border rounded-lg">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+                      className="h-10 w-10 p-0"
+                    >
+                      <Minus className="h-4 w-4" />
+                    </Button>
+                    <span className="px-4 py-2 font-medium">{quantity}</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setQuantity(quantity + 1)}
+                      className="h-10 w-10 p-0"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <span className="text-sm text-gray-600">
+                    {quantity > 1 ? `${quantity} unidades` : '1 unidade'}
+                  </span>
                 </div>
               </div>
 
@@ -211,19 +257,6 @@ const Index = () => {
                 <a href="#" className="block text-center text-[#D1447D] hover:underline">
                   Assinar & economizar 15%
                 </a>
-              </div>
-
-              {/* Shipping Calculator */}
-              <div className="flex space-x-2">
-                <Input
-                  placeholder="Digite seu CEP"
-                  value={cep}
-                  onChange={(e) => setCep(e.target.value)}
-                  className="flex-1"
-                />
-                <Button className="bg-[#A8D0E6] hover:bg-[#97C5E3] text-gray-800">
-                  CALCULAR
-                </Button>
               </div>
             </div>
           </div>
@@ -269,7 +302,7 @@ const Index = () => {
               { icon: Droplets, title: 'Hidratação inteligente', desc: 'Água + sabor + nutrientes essenciais' },
               { icon: CheckCircle, title: 'Zero açúcar', desc: 'Adoçado com sucralose natural' },
               { icon: Zap, title: 'Praticidade absoluta', desc: 'Misture em qualquer lugar, a qualquer hora' },
-              { icon: Sun, title: 'Só 5 kcal', desc: 'Sabor sem culpa, hidratação sem peso' }
+              { icon: Sun, title: 'Só 0 kcal', desc: 'Sabor sem culpa, hidratação sem peso' }
             ].map((benefit, index) => (
               <Card key={index} className="text-center hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
@@ -288,13 +321,11 @@ const Index = () => {
         <div className="container mx-auto max-w-6xl px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              <div className="bg-white rounded-3xl p-8 shadow-xl">
-                <img 
-                  src="/lovable-uploads/5a437cbb-358f-4ea8-b4ad-f214512fb376.png" 
-                  alt="Bluu Hidratação Melancia - Sachê individual com fatia de melancia" 
-                  className="w-full max-w-sm mx-auto"
-                />
-              </div>
+              <img 
+                src="/lovable-uploads/5a437cbb-358f-4ea8-b4ad-f214512fb376.png" 
+                alt="Bluu Hidratação Melancia - Sachê individual com fatia de melancia" 
+                className="w-full max-w-sm mx-auto"
+              />
             </div>
             
             <div className="space-y-6">
@@ -302,13 +333,13 @@ const Index = () => {
                 Refrescância que cabe no bolso
               </h2>
               <p className="text-xl text-gray-600">
-                Sabor de melancia geladinha, zero açúcar e só 5 kcal. Perfeito para o verão.
+                Sabor de melancia geladinha, zero açúcar e só 0 kcal. Perfeito para o verão.
               </p>
               <div className="space-y-4">
                 {[
-                  { icon: '🧊', text: 'Gelo de verdade' },
+                  { icon: '💼', text: 'Para o seu dia a dia' },
                   { icon: '⚡', text: 'Pick-me-up instantâneo' },
-                  { icon: '🌞', text: 'Mood de verão' },
+                  { icon: '🌞', text: 'Saboroso e prático' },
                   { icon: '💧', text: 'Hidratação clean' }
                 ].map((item, index) => (
                   <div key={index} className="flex items-center space-x-3">
@@ -326,14 +357,14 @@ const Index = () => {
       </section>
 
       {/* Social Proof */}
-      <section id="testimonials" className="py-16 bg-gradient-to-br from-[#A8D0E6]/20 via-white to-[#F3C4EB]/20">
+      <section id="testimonials" className="py-16 bg-gradient-to-br from-[#A8D0E6]/30 via-white to-[#F3C4EB]/30">
         <div className="container mx-auto max-w-6xl px-4 text-center">
           <div className="mb-8">
-            <Badge className="bg-green-100 text-green-800 px-4 py-2 mb-4">
+            <Badge className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 mb-4 text-lg font-semibold shadow-lg">
               ✅ Mais de 60.000 clientes satisfeitos
             </Badge>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-[#D1447D] to-[#A8D0E6] bg-clip-text text-transparent">
             A hidratação saborizada que conquistou o Brasil
           </h2>
           <p className="text-xl text-gray-600 mb-12">
@@ -349,7 +380,9 @@ const Index = () => {
                 emoji: '🏖️',
                 review: 'Bluu mudou minha relação com a água! Agora consigo beber os 2L recomendados sem esforço. Levo sempre para a praia.',
                 verified: true,
-                date: 'Há 2 semanas'
+                date: 'Há 2 semanas',
+                bg: 'bg-gradient-to-br from-blue-50 to-cyan-50',
+                border: 'border-blue-200'
               },
               { 
                 name: 'Gabriel Santos', 
@@ -358,7 +391,9 @@ const Index = () => {
                 emoji: '💼',
                 review: 'Trabalho 10h por dia e sempre esquecia de me hidratar. Com Bluu, virou hábito automático. Recomendo 100%!',
                 verified: true,
-                date: 'Há 1 mês'
+                date: 'Há 1 mês',
+                bg: 'bg-gradient-to-br from-purple-50 to-pink-50',
+                border: 'border-purple-200'
               },
               { 
                 name: 'Juliana Costa', 
@@ -367,63 +402,65 @@ const Index = () => {
                 emoji: '🏋️‍♀️',
                 review: 'Uso com meus alunos há 6 meses. Zero açúcar, sabor incrível e hidratação perfeita pós-treino. Aprovadíssimo!',
                 verified: true,
-                date: 'Há 3 semanas'
+                date: 'Há 3 semanas',
+                bg: 'bg-gradient-to-br from-green-50 to-emerald-50',
+                border: 'border-green-200'
               }
             ].map((person, index) => (
-              <Card key={index} className="relative overflow-hidden border-2 border-transparent hover:border-[#D1447D]/20 transition-all duration-300 hover:shadow-xl">
-                <CardContent className="p-6">
+              <Card key={index} className={`relative overflow-hidden ${person.bg} ${person.border} border-2 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1`}>
+                <CardContent className="p-8">
                   <div className="absolute top-4 right-4">
                     {person.verified && (
-                      <div className="flex items-center space-x-1">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span className="text-xs text-green-600 font-medium">Verificado</span>
+                      <div className="flex items-center space-x-1 bg-green-500 text-white px-3 py-1 rounded-full">
+                        <CheckCircle className="w-3 h-3" />
+                        <span className="text-xs font-medium">Verificado</span>
                       </div>
                     )}
                   </div>
                   
-                  <div className="text-4xl mb-4">{person.emoji}</div>
+                  <div className="text-5xl mb-6">{person.emoji}</div>
                   
-                  <div className="flex items-center justify-center mb-4">
+                  <div className="flex items-center justify-center mb-6">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
                   
-                  <p className="text-gray-700 mb-4 italic leading-relaxed">
+                  <p className="text-gray-700 mb-6 italic leading-relaxed text-lg font-medium">
                     "{person.review}"
                   </p>
                   
-                  <div className="border-t pt-4">
-                    <p className="font-bold text-gray-900">{person.name}</p>
-                    <p className="text-sm text-gray-600">{person.location}</p>
-                    <p className="text-xs text-gray-500 mt-1">{person.context} • {person.date}</p>
+                  <div className="border-t pt-6">
+                    <p className="font-bold text-gray-900 text-lg">{person.name}</p>
+                    <p className="text-sm text-gray-600 font-medium">{person.location}</p>
+                    <p className="text-xs text-gray-500 mt-2">{person.context} • {person.date}</p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-[#D1447D]/10 to-[#A8D0E6]/10 rounded-2xl p-8">
-            <div className="flex items-center justify-center space-x-8 mb-6">
+          <div className="bg-gradient-to-r from-[#D1447D]/15 via-[#A8D0E6]/15 to-[#F3C4EB]/15 rounded-3xl p-10 shadow-xl">
+            <div className="flex items-center justify-center space-x-12 mb-8">
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#D1447D]">4.9</div>
-                <div className="flex items-center justify-center">
+                <div className="text-4xl font-bold text-[#D1447D] mb-2">4.9</div>
+                <div className="flex items-center justify-center mb-2">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <div className="text-sm text-gray-600">Avaliação média</div>
+                <div className="text-sm text-gray-600 font-medium">Avaliação média</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#D1447D]">1.247</div>
-                <div className="text-sm text-gray-600">Reviews totais</div>
+                <div className="text-4xl font-bold text-[#D1447D] mb-2">1.247</div>
+                <div className="text-sm text-gray-600 font-medium">Reviews totais</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-[#D1447D]">97%</div>
-                <div className="text-sm text-gray-600">Recomendariam</div>
+                <div className="text-4xl font-bold text-[#D1447D] mb-2">97%</div>
+                <div className="text-sm text-gray-600 font-medium">Recomendariam</div>
               </div>
             </div>
-            <Badge className="bg-[#D1447D] text-white px-6 py-2">
+            <Badge className="bg-gradient-to-r from-[#D1447D] to-[#B13A6B] text-white px-8 py-3 text-lg font-bold shadow-lg">
               🏆 Produto mais vendido da categoria
             </Badge>
           </div>
@@ -444,7 +481,7 @@ const Index = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span>Calorias</span>
-                      <span className="font-semibold">5 kcal</span>
+                      <span className="font-semibold">0 kcal</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Carboidratos</span>
