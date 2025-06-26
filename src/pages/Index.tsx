@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -108,10 +107,16 @@ const Index = () => {
                 Produtos
               </button>
               <button 
-                onClick={() => scrollToSection('benefits')}
+                onClick={() => scrollToSection('how-to-use')}
                 className="text-gray-700 hover:text-[#D1447D] transition-colors"
               >
                 Como Funciona
+              </button>
+              <button 
+                onClick={() => scrollToSection('benefits')}
+                className="text-gray-700 hover:text-[#D1447D] transition-colors"
+              >
+                Benefícios
               </button>
               <button 
                 onClick={() => scrollToSection('testimonials')}
@@ -286,6 +291,76 @@ const Index = () => {
                   QUERO SER AVISADO
                 </Button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How to Use Section - Transforme água em Bluu */}
+      <section id="how-to-use" className="py-20 bg-white">
+        <div className="container mx-auto max-w-6xl px-4">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Column - Content */}
+            <div className="space-y-8 lg:pr-8">
+              <div className="space-y-4">
+                <h2 className="text-4xl font-extrabold text-gray-900 leading-tight">
+                  Transforme água em Bluu refrescante
+                </h2>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Beba mais água com Bluu! É só adicionar um sachê Bluu em 500 ml de água gelada para viver uma explosão de sabor com zero açúcar e cheio de benefícios para sua saúde.
+                </p>
+              </div>
+
+              {/* Steps */}
+              <div className="space-y-6 mt-12">
+                {/* Step 1 */}
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Droplets className="w-6 h-6 text-blue-600" strokeWidth={2} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">ÁGUA</h3>
+                    <p className="text-gray-600">Adicione 500 ml de água gelada</p>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                    <div className="w-6 h-6 bg-purple-600 rounded-sm"></div>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">SACHÊ</h3>
+                    <p className="text-gray-600">Abra e adicione o conteúdo de 1 stick Bluu</p>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl">😋</span>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">APROVEITE</h3>
+                    <p className="text-gray-600">Beba sua hidratação saborizada e curta o momento</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Image */}
+            <div className="relative">
+              <div className="aspect-square bg-gradient-to-br from-pink-50 via-white to-blue-50 rounded-3xl overflow-hidden shadow-xl">
+                <img 
+                  src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                  alt="Copo transparente com água saborizada Bluu de melancia com fatia de melancia ao lado"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              {/* Floating elements */}
+              <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-[#D1447D] to-[#B13A6B] rounded-full opacity-20 animate-pulse"></div>
+              <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-br from-[#A8D0E6] to-[#85C1E6] rounded-full opacity-30 animate-pulse delay-1000"></div>
             </div>
           </div>
         </div>
