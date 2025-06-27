@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
-import { CreditCard, Shield, Clock, CheckCircle, Plus } from 'lucide-react';
+import { CreditCard, Shield, Clock, CheckCircle, Plus, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
 
 interface CartItem {
   id: number;
@@ -24,6 +25,7 @@ interface CheckoutProps {
 const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, shipping }) => {
   const [paymentMethod, setPaymentMethod] = useState('credit');
   const [showPixConfirmation, setShowPixConfirmation] = useState(false);
+  const navigate = useNavigate();
 
   const handlePixGeneration = () => {
     setShowPixConfirmation(true);
@@ -31,7 +33,13 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
 
   const confirmPixPayment = () => {
     setShowPixConfirmation(false);
-    alert('PIX gerado com sucesso!');
+    onClose();
+    navigate('/obrigado');
+  };
+
+  const handleFinalizeOrder = () => {
+    onClose();
+    navigate('/obrigado');
   };
 
   const subtotal = total - shipping;
@@ -41,9 +49,19 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-lg font-bold">
-              Finalizar Compra
-            </DialogTitle>
+            <div className="flex items-center">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="p-1 h-8 w-8 mr-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+              <DialogTitle className="text-lg font-bold">
+                Finalizar Compra
+              </DialogTitle>
+            </div>
           </DialogHeader>
           
           <div className="space-y-6">
@@ -69,7 +87,6 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
               </div>
             )}
 
-            {/* Order Summary */}
             <div className="bg-gray-50 rounded-lg p-4">
               <h3 className="font-semibold mb-3">Resumo do Pedido</h3>
               {cartItems.map((item) => (
@@ -107,7 +124,6 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
               </Badge>
             </div>
 
-            {/* Personal Information */}
             <div className="space-y-4">
               <h3 className="font-semibold flex items-center">
                 <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
@@ -120,7 +136,6 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
               <Input placeholder="E-mail" type="email" />
             </div>
 
-            {/* Address */}
             <div className="space-y-4">
               <h3 className="font-semibold flex items-center">
                 <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
@@ -138,7 +153,6 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
               </div>
             </div>
 
-            {/* Payment Method */}
             <div className="space-y-4">
               <h3 className="font-semibold flex items-center">
                 <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
@@ -187,7 +201,6 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
               </div>
             )}
 
-            {/* Security Badge */}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
               <div className="flex items-center space-x-2">
                 <Shield className="w-4 h-4 text-blue-600" />
@@ -197,9 +210,8 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
               </div>
             </div>
 
-            {/* Submit Button */}
             <Button 
-              onClick={paymentMethod === 'pix' ? handlePixGeneration : () => alert('Pedido finalizado!')}
+              onClick={paymentMethod === 'pix' ? handlePixGeneration : handleFinalizeOrder}
               className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-3"
             >
               {paymentMethod === 'pix' ? 'GERAR PIX' : 'FINALIZAR PEDIDO'}
