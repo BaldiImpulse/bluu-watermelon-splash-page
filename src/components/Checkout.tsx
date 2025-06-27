@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { CreditCard, Shield, Clock, CheckCircle } from 'lucide-react';
+import { CreditCard, Shield, Clock, CheckCircle, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -58,6 +58,16 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
                 <span className="text-xs text-green-700 font-medium">Entrega Rápida</span>
               </div>
             </div>
+
+            {/* Shipping alert */}
+            {shipping > 0 && (
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                <p className="text-xs md:text-sm text-orange-800 font-medium flex items-center">
+                  <Plus className="w-3 h-3 md:w-4 md:h-4 mr-2" />
+                  Adicione mais uma unidade para liberar frete grátis!
+                </p>
+              </div>
+            )}
 
             {/* Order Summary */}
             <div className="bg-gray-50 rounded-lg p-4">

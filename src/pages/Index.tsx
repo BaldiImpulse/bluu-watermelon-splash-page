@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2, CreditCard } from 'lucide-react';
+import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2, CreditCard, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -17,6 +17,7 @@ const Index = () => {
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
@@ -41,6 +42,7 @@ const Index = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+    setIsMobileMenuOpen(false);
   };
 
   const handleNotifyMe = () => {
@@ -90,6 +92,11 @@ const Index = () => {
   const updateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity === 0) {
       setCartItems(cartItems.filter(item => item.id !== id));
+      setIsCartOpen(false);
+      toast({
+        title: "Produto removido do carrinho",
+        description: "Carrinho está vazio agora.",
+      });
     } else {
       setCartItems(cartItems.map(item => 
         item.id === id ? { ...item, quantity: newQuantity } : item
@@ -113,14 +120,6 @@ const Index = () => {
   const handleCheckout = () => {
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
-  };
-
-  // Calculate dynamic discount based on quantity
-  const calculateDiscount = () => {
-    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
-    const originalPricePerUnit = 179.90;
-    const discountedPricePerUnit = 59.90;
-    return (originalPricePerUnit - discountedPricePerUnit) * totalQuantity;
   };
 
   return (
@@ -165,14 +164,51 @@ const Index = () => {
             </nav>
 
             {/* Mobile menu button */}
-            <button className="md:hidden p-2">
-              <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-                <div className="w-full h-0.5 bg-gray-700"></div>
-                <div className="w-full h-0.5 bg-gray-700"></div>
-                <div className="w-full h-0.5 bg-gray-700"></div>
-              </div>
+            <button 
+              className="md:hidden p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <Menu className="w-6 h-6 text-gray-700" />
             </button>
           </div>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-4 py-4 border-t border-gray-100">
+              <nav className="flex flex-col space-y-3">
+                <button 
+                  onClick={() => scrollToSection('hero')}
+                  className="text-left text-gray-700 hover:text-[#D1447D] transition-colors py-2"
+                >
+                  Produtos
+                </button>
+                <button 
+                  onClick={() => scrollToSection('how-to-use')}
+                  className="text-left text-gray-700 hover:text-[#D1447D] transition-colors py-2"
+                >
+                  Como Funciona
+                </button>
+                <button 
+                  onClick={() => scrollToSection('benefits')}
+                  className="text-left text-gray-700 hover:text-[#D1447D] transition-colors py-2"
+                >
+                  Benefícios
+                </button>
+                <button 
+                  onClick={() => scrollToSection('testimonials')}
+                  className="text-left text-gray-700 hover:text-[#D1447D] transition-colors py-2"
+                >
+                  Depoimentos
+                </button>
+                <button 
+                  onClick={() => scrollToSection('faq')}
+                  className="text-left text-gray-700 hover:text-[#D1447D] transition-colors py-2"
+                >
+                  FAQ
+                </button>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
@@ -193,12 +229,6 @@ const Index = () => {
                     ))}
                   </div>
                   <span className="text-xs md:text-sm text-gray-600">4,9 (128 avaliações)</span>
-                </div>
-                
-                {/* Price and portions moved above flavor selector */}
-                <div className="flex items-center space-x-3 md:space-x-4 mb-3 md:mb-4">
-                  <span className="text-2xl md:text-3xl font-bold text-[#D1447D]">R$ 59,90</span>
-                  <Badge variant="secondary" className="text-xs">12 porções</Badge>
                 </div>
 
                 {/* Mobile Product Images - Between price and description */}
@@ -225,7 +255,7 @@ const Index = () => {
                 </div>
 
                 <p className="text-sm md:text-base text-gray-600 mb-3 md:mb-4 leading-relaxed">
-                  Transforme qualquer 500 ml de água em uma explosão refrescante sem adição de açúcar ou ingredientes artificiais. Rica em vitamina C antioxidante e sem glúten.
+                  Transforme qualquer 500 ml de água em uma explosão refrescante sem adição de açúcar ou ingredientes artificiais. Rica em vitamina C, antioxidante e sem glúten.
                 </p>
                 <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6 italic leading-relaxed">
                   <strong>Sabor Melancia:</strong> Como morder uma melancia doce depois de um mergulho no mar salgado. Um sabor refrescante e matador da fruta mais suculenta do verão.
@@ -258,6 +288,12 @@ const Index = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* Price and portions moved here */}
+              <div className="flex items-center space-x-3 md:space-x-4 mb-3 md:mb-4">
+                <span className="text-2xl md:text-3xl font-bold text-[#D1447D]">R$ 59,90</span>
+                <Badge variant="secondary" className="text-xs">12 porções</Badge>
               </div>
 
               {/* Quantity Selector */}
@@ -462,12 +498,12 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {/* Card 1 - Drinks & Mocktails */}
+            {/* Card 1 - Drinks & Mocktails - Trocando com a imagem do aperol */}
             <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
               <div className="aspect-[4/3] overflow-hidden">
                 <img 
-                  src="/lovable-uploads/0126cf3a-1512-4b08-93bd-360e4d74ba6a.png"
-                  alt="Taça com mocktail colorido, gelo e hortelã"
+                  src="/lovable-uploads/80f3bea2-f9e8-4ed6-8d03-8cfdf1b18e3b.png"
+                  alt="Copo alto com água com gás, cubos de gelo e Bluu efervescente"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -481,12 +517,12 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            {/* Card 2 - Troque o Refrigerante */}
+            {/* Card 2 - Troque o Refrigerante - Trocando com a imagem do mocktail */}
             <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
               <div className="aspect-[4/3] overflow-hidden">
                 <img 
-                  src="/lovable-uploads/80f3bea2-f9e8-4ed6-8d03-8cfdf1b18e3b.png"
-                  alt="Copo alto com água com gás, cubos de gelo e Bluu efervescente"
+                  src="/lovable-uploads/0126cf3a-1512-4b08-93bd-360e4d74ba6a.png"
+                  alt="Taça com mocktail colorido, gelo e hortelã"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -845,9 +881,6 @@ const Index = () => {
                 <div className="flex-1">
                   <h3 className="font-medium text-xs md:text-sm">{item.name}</h3>
                   <div className="flex items-center space-x-2 mt-1">
-                    <span className="text-xs md:text-sm text-gray-500 line-through">
-                      R$ {item.originalPrice.toFixed(2)}
-                    </span>
                     <span className="text-xs md:text-sm font-bold text-[#D1447D]">
                       R$ {item.price.toFixed(2)}
                     </span>
@@ -893,12 +926,6 @@ const Index = () => {
                 <span className="text-sm">Frete</span>
                 <span className={`font-medium ${getShipping() === 0 ? 'text-green-600' : ''}`}>
                   R$ {getShipping().toFixed(2)}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Desconto</span>
-                <span className="font-medium text-green-600">
-                  -R$ {calculateDiscount().toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between items-center font-bold text-base md:text-lg border-t pt-2">
