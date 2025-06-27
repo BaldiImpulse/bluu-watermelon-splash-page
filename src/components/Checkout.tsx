@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CreditCard, Shield, Clock, CheckCircle, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -31,7 +30,11 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
 
   const confirmPixPayment = () => {
     setShowPixConfirmation(false);
-    alert('PIX gerado com sucesso!');
+    window.location.href = '/obrigado';
+  };
+
+  const handleFinalizarPedido = () => {
+    window.location.href = '/obrigado';
   };
 
   const subtotal = total - shipping;
@@ -199,7 +202,7 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
 
             {/* Submit Button */}
             <Button 
-              onClick={paymentMethod === 'pix' ? handlePixGeneration : () => alert('Pedido finalizado!')}
+              onClick={paymentMethod === 'pix' ? handlePixGeneration : handleFinalizarPedido}
               className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-3"
             >
               {paymentMethod === 'pix' ? 'GERAR PIX' : 'FINALIZAR PEDIDO'}
