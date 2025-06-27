@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { CreditCard, X, Shield, Clock, CheckCircle } from 'lucide-react';
+import { CreditCard, Shield, Clock, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -18,9 +18,10 @@ interface CheckoutProps {
   onClose: () => void;
   cartItems: CartItem[];
   total: number;
+  shipping: number;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total }) => {
+const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, shipping }) => {
   const [paymentMethod, setPaymentMethod] = useState('credit');
   const [showPixConfirmation, setShowPixConfirmation] = useState(false);
 
@@ -30,25 +31,18 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total }
 
   const confirmPixPayment = () => {
     setShowPixConfirmation(false);
-    // Aqui seria implementada a lógica de geração do PIX
     alert('PIX gerado com sucesso!');
   };
+
+  const subtotal = total - shipping;
 
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="flex items-center justify-between">
-              <span className="text-lg font-bold">Finalizar Compra</span>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={onClose}
-                className="p-1 h-auto hover:bg-gray-100 rounded-full"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+            <DialogTitle className="text-lg font-bold">
+              Finalizar Compra
             </DialogTitle>
           </DialogHeader>
           
@@ -77,11 +71,13 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total }
               <div className="space-y-1 mt-3 pt-2 border-t">
                 <div className="flex justify-between items-center text-sm">
                   <span>Subtotal</span>
-                  <span>R$ {total.toFixed(2)}</span>
+                  <span>R$ {subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <span>Frete</span>
-                  <span className="text-green-600 font-medium">R$ 0,00</span>
+                  <span className={shipping === 0 ? 'text-green-600 font-medium' : ''}>
+                    R$ {shipping.toFixed(2)}
+                  </span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <span>Taxas</span>

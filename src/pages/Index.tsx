@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -81,6 +82,11 @@ const Index = () => {
     });
   };
 
+  const handleFreshnessClick = () => {
+    setQuantity(1);
+    handleAddToCart();
+  };
+
   const updateQuantity = (id: number, newQuantity: number) => {
     if (newQuantity === 0) {
       setCartItems(cartItems.filter(item => item.id !== id));
@@ -95,9 +101,26 @@ const Index = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  const getShipping = () => {
+    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+    return totalQuantity >= 2 ? 0 : 10.90;
+  };
+
+  const getTotalWithShipping = () => {
+    return getSubtotal() + getShipping();
+  };
+
   const handleCheckout = () => {
     setIsCartOpen(false);
     setIsCheckoutOpen(true);
+  };
+
+  // Calculate dynamic discount based on quantity
+  const calculateDiscount = () => {
+    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const originalPricePerUnit = 179.90;
+    const discountedPricePerUnit = 59.90;
+    return (originalPricePerUnit - discountedPricePerUnit) * totalQuantity;
   };
 
   return (
@@ -171,6 +194,8 @@ const Index = () => {
                   </div>
                   <span className="text-xs md:text-sm text-gray-600">4,9 (128 avaliações)</span>
                 </div>
+                
+                {/* Price and portions moved above flavor selector */}
                 <div className="flex items-center space-x-3 md:space-x-4 mb-3 md:mb-4">
                   <span className="text-2xl md:text-3xl font-bold text-[#D1447D]">R$ 59,90</span>
                   <Badge variant="secondary" className="text-xs">12 porções</Badge>
@@ -529,7 +554,10 @@ const Index = () => {
                   </div>
                 ))}
               </div>
-              <Button className="bg-white text-[#D1447D] border border-[#D1447D] hover:bg-[#D1447D] hover:text-white text-sm md:text-base">
+              <Button 
+                onClick={handleFreshnessClick}
+                className="bg-white text-[#D1447D] border border-[#D1447D] hover:bg-[#D1447D] hover:text-white text-sm md:text-base"
+              >
                 QUERO SENTIR ESSA FRESHNESS
               </Button>
             </div>
@@ -791,12 +819,21 @@ const Index = () => {
           </DialogHeader>
           
           <div className="space-y-4">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-              <p className="text-xs md:text-sm text-green-800 font-medium flex items-center">
-                <CheckCircle className="w-3 h-3 md:w-4 md:h-4 mr-2" />
-                Parabéns! Você ganhou FRETE GRÁTIS 💚
-              </p>
-            </div>
+            {getShipping() === 0 ? (
+              <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                <p className="text-xs md:text-sm text-green-800 font-medium flex items-center">
+                  <CheckCircle className="w-3 h-3 md:w-4 md:h-4 mr-2" />
+                  Parabéns! Você ganhou FRETE GRÁTIS 💚
+                </p>
+              </div>
+            ) : (
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                <p className="text-xs md:text-sm text-orange-800 font-medium flex items-center">
+                  <Plus className="w-3 h-3 md:w-4 md:h-4 mr-2" />
+                  Adicione mais uma unidade para liberar frete grátis!
+                </p>
+              </div>
+            )}
 
             {cartItems.map((item) => (
               <div key={item.id} className="flex items-center space-x-3 p-3 md:p-4 border rounded-lg">
@@ -847,10 +884,26 @@ const Index = () => {
               </div>
             ))}
 
-            <div className="border-t pt-4">
-              <div className="flex justify-between items-center mb-4">
-                <span className="font-semibold text-sm md:text-base">Subtotal</span>
-                <span className="font-bold text-base md:text-lg">R$ {getSubtotal().toFixed(2)}</span>
+            <div className="border-t pt-4 space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Subtotal</span>
+                <span className="font-medium">R$ {getSubtotal().toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Frete</span>
+                <span className={`font-medium ${getShipping() === 0 ? 'text-green-600' : ''}`}>
+                  R$ {getShipping().toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm">Desconto</span>
+                <span className="font-medium text-green-600">
+                  -R$ {calculateDiscount().toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between items-center font-bold text-base md:text-lg border-t pt-2">
+                <span>Total</span>
+                <span>R$ {getTotalWithShipping().toFixed(2)}</span>
               </div>
               
               <Button 
@@ -858,14 +911,6 @@ const Index = () => {
                 className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-2 md:py-3 text-sm md:text-base"
               >
                 FINALIZAR COMPRA
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                className="w-full mt-2 text-sm md:text-base"
-                onClick={() => setIsCartOpen(false)}
-              >
-                CONTINUAR COMPRANDO
               </Button>
             </div>
           </div>
@@ -877,7 +922,8 @@ const Index = () => {
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         cartItems={cartItems}
-        total={getSubtotal()}
+        total={getTotalWithShipping()}
+        shipping={getShipping()}
       />
     </div>
   );
