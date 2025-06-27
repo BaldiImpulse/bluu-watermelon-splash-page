@@ -808,7 +808,7 @@ const Index = () => {
             Entre para o universo Bluu
           </h2>
           <p className="text-pink-100 mb-6 md:mb-8 text-sm md:text-base leading-relaxed">
-            Ganhe 10% de desconto na primeira compra e receba dicas exclusivas de hidratação
+            Receba dicas exclusivas de hidratação e faça parte da nossa comunidade!
           </p>
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 max-w-md mx-auto">
             <Input
@@ -822,7 +822,7 @@ const Index = () => {
               onClick={handleNewsletter}
               className="bg-white text-[#D1447D] hover:bg-gray-100 text-sm whitespace-nowrap"
             >
-              QUERO DESCONTO
+              QUERO ME INSCREVER
             </Button>
           </div>
         </div>
