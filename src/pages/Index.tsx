@@ -575,7 +575,7 @@ const Index = () => {
                 Refrescância que cabe no bolso
               </h2>
               <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                Sabor de melancia geladinha, zero açúcar e 0 kcal. Perfeito para o verão.
+                Sabor de melancia geladinha, zero açúcar e 0 kcal. Perfeito para todos os momentos.
               </p>
               <div className="space-y-3 md:space-y-4">
                 {[
