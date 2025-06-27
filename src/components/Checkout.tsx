@@ -1,10 +1,11 @@
 
 import React, { useState } from 'react';
-import { CreditCard, Shield, Clock, CheckCircle, Plus } from 'lucide-react';
+import { CreditCard, Shield, Clock, CheckCircle, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import OutOfStockModal from './OutOfStockModal';
 
 interface CartItem {
   id: number;
@@ -24,17 +25,95 @@ interface CheckoutProps {
 const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, shipping }) => {
   const [paymentMethod, setPaymentMethod] = useState('credit');
   const [showPixConfirmation, setShowPixConfirmation] = useState(false);
+  const [showOutOfStock, setShowOutOfStock] = useState(false);
+  const [quantity, setQuantity] = useState(cartItems.length > 0 ? cartItems[0].quantity : 1);
+  
+  // Form states
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    cep: '',
+    address: '',
+    number: '',
+    complement: '',
+    city: '',
+    state: '',
+    cardNumber: '',
+    cardExpiry: '',
+    cardCvv: '',
+    cardName: ''
+  });
+
+  const [errors, setErrors] = useState<string[]>([]);
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    // Remove error when user starts typing
+    if (errors.length > 0) {
+      setErrors([]);
+    }
+  };
+
+  const validateForm = () => {
+    const requiredFields = [
+      { field: 'name', label: 'Nome completo' },
+      { field: 'phone', label: 'Telefone' },
+      { field: 'email', label: 'E-mail' },
+      { field: 'cep', label: 'CEP' },
+      { field: 'address', label: 'Endereço' },
+      { field: 'number', label: 'Número' },
+      { field: 'city', label: 'Cidade' },
+      { field: 'state', label: 'Estado' }
+    ];
+
+    if (paymentMethod === 'credit') {
+      requiredFields.push(
+        { field: 'cardNumber', label: 'Número do cartão' },
+        { field: 'cardExpiry', label: 'Validade do cartão' },
+        { field: 'cardCvv', label: 'CVV' },
+        { field: 'cardName', label: 'Nome no cartão' }
+      );
+    }
+
+    const missingFields = requiredFields.filter(
+      ({ field }) => !formData[field as keyof typeof formData]?.trim()
+    );
+
+    if (missingFields.length > 0) {
+      setErrors(missingFields.map(({ label }) => label));
+      return false;
+    }
+
+    return true;
+  };
 
   const handlePixGeneration = () => {
-    setShowPixConfirmation(true);
+    if (validateForm()) {
+      setShowOutOfStock(true);
+    }
+  };
+
+  const handleFinalizeOrder = () => {
+    if (validateForm()) {
+      setShowOutOfStock(true);
+    }
   };
 
   const confirmPixPayment = () => {
     setShowPixConfirmation(false);
-    alert('PIX gerado com sucesso!');
+    setShowOutOfStock(true);
   };
 
-  const subtotal = total - shipping;
+  const handleQuantityChange = (newQuantity: number) => {
+    if (newQuantity >= 1) {
+      setQuantity(newQuantity);
+    }
+  };
+
+  const itemPrice = 59.90;
+  const subtotalWithQuantity = itemPrice * quantity;
+  const totalWithQuantity = subtotalWithQuantity + shipping;
 
   return (
     <>
@@ -69,19 +148,42 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
               </div>
             )}
 
-            {/* Order Summary */}
+            {/* Order Summary with Quantity Control */}
             <div className="bg-gray-50 rounded-lg p-4">
               <h3 className="font-semibold mb-3">Resumo do Pedido</h3>
-              {cartItems.map((item) => (
-                <div key={item.id} className="flex justify-between items-center mb-2">
-                  <span className="text-sm">{item.name} x{item.quantity}</span>
-                  <span className="font-medium">R$ {(item.price * item.quantity).toFixed(2)}</span>
+              
+              {/* Quantity Control */}
+              <div className="flex justify-between items-center mb-4 p-3 bg-white rounded-lg border">
+                <div className="flex-1">
+                  <p className="font-medium">Bluu em Ação</p>
+                  <p className="text-sm text-gray-600">R$ {itemPrice.toFixed(2)} cada</p>
                 </div>
-              ))}
+                <div className="flex items-center space-x-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleQuantityChange(quantity - 1)}
+                    disabled={quantity <= 1}
+                    className="h-8 w-8 p-0"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </Button>
+                  <span className="font-medium min-w-[2rem] text-center">{quantity}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleQuantityChange(quantity + 1)}
+                    className="h-8 w-8 p-0"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
               <div className="space-y-1 mt-3 pt-2 border-t">
                 <div className="flex justify-between items-center text-sm">
                   <span>Subtotal</span>
-                  <span>R$ {subtotal.toFixed(2)}</span>
+                  <span>R$ {subtotalWithQuantity.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
                   <span>Frete</span>
@@ -95,10 +197,22 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
                 </div>
                 <div className="flex justify-between items-center font-bold text-lg pt-2 border-t">
                   <span>Total</span>
-                  <span>R$ {total.toFixed(2)}</span>
+                  <span>R$ {totalWithQuantity.toFixed(2)}</span>
                 </div>
               </div>
             </div>
+
+            {/* Error Messages */}
+            {errors.length > 0 && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="text-red-800 font-medium mb-2">Preencha os campos obrigatórios:</p>
+                <ul className="text-sm text-red-700 list-disc list-inside">
+                  {errors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Urgency Badge */}
             <div className="text-center">
@@ -114,10 +228,23 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
                 Dados Pessoais
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input placeholder="Nome completo" />
-                <Input placeholder="Telefone" />
+                <Input 
+                  placeholder="Nome completo" 
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                />
+                <Input 
+                  placeholder="Telefone" 
+                  value={formData.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                />
               </div>
-              <Input placeholder="E-mail" type="email" />
+              <Input 
+                placeholder="E-mail" 
+                type="email" 
+                value={formData.email}
+                onChange={(e) => handleInputChange('email', e.target.value)}
+              />
             </div>
 
             {/* Address */}
@@ -126,15 +253,39 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
                 <CheckCircle className="w-4 h-4 mr-2 text-green-600" />
                 Endereço de Entrega
               </h3>
-              <Input placeholder="CEP" />
-              <Input placeholder="Endereço" />
+              <Input 
+                placeholder="CEP" 
+                value={formData.cep}
+                onChange={(e) => handleInputChange('cep', e.target.value)}
+              />
+              <Input 
+                placeholder="Endereço" 
+                value={formData.address}
+                onChange={(e) => handleInputChange('address', e.target.value)}
+              />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input placeholder="Número" />
-                <Input placeholder="Complemento" />
+                <Input 
+                  placeholder="Número" 
+                  value={formData.number}
+                  onChange={(e) => handleInputChange('number', e.target.value)}
+                />
+                <Input 
+                  placeholder="Complemento" 
+                  value={formData.complement}
+                  onChange={(e) => handleInputChange('complement', e.target.value)}
+                />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input placeholder="Cidade" />
-                <Input placeholder="Estado" />
+                <Input 
+                  placeholder="Cidade" 
+                  value={formData.city}
+                  onChange={(e) => handleInputChange('city', e.target.value)}
+                />
+                <Input 
+                  placeholder="Estado" 
+                  value={formData.state}
+                  onChange={(e) => handleInputChange('state', e.target.value)}
+                />
               </div>
             </div>
 
@@ -178,12 +329,28 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
             {paymentMethod === 'credit' && (
               <div className="space-y-4">
                 <h4 className="font-medium">Dados do Cartão</h4>
-                <Input placeholder="Número do cartão" />
+                <Input 
+                  placeholder="Número do cartão" 
+                  value={formData.cardNumber}
+                  onChange={(e) => handleInputChange('cardNumber', e.target.value)}
+                />
                 <div className="grid grid-cols-2 gap-4">
-                  <Input placeholder="MM/AA" />
-                  <Input placeholder="CVV" />
+                  <Input 
+                    placeholder="MM/AA" 
+                    value={formData.cardExpiry}
+                    onChange={(e) => handleInputChange('cardExpiry', e.target.value)}
+                  />
+                  <Input 
+                    placeholder="CVV" 
+                    value={formData.cardCvv}
+                    onChange={(e) => handleInputChange('cardCvv', e.target.value)}
+                  />
                 </div>
-                <Input placeholder="Nome no cartão" />
+                <Input 
+                  placeholder="Nome no cartão" 
+                  value={formData.cardName}
+                  onChange={(e) => handleInputChange('cardName', e.target.value)}
+                />
               </div>
             )}
 
@@ -199,7 +366,7 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
 
             {/* Submit Button */}
             <Button 
-              onClick={paymentMethod === 'pix' ? handlePixGeneration : () => alert('Pedido finalizado!')}
+              onClick={paymentMethod === 'pix' ? handlePixGeneration : handleFinalizeOrder}
               className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-3"
             >
               {paymentMethod === 'pix' ? 'GERAR PIX' : 'FINALIZAR PEDIDO'}
@@ -226,7 +393,7 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
           <div className="space-y-4 text-center">
             <div className="text-4xl">💳</div>
             <p className="text-gray-600">
-              Você está prestes a gerar um código PIX no valor de <strong>R$ {total.toFixed(2)}</strong>
+              Você está prestes a gerar um código PIX no valor de <strong>R$ {totalWithQuantity.toFixed(2)}</strong>
             </p>
             <p className="text-sm text-gray-500">
               O código PIX terá validade de 15 minutos
@@ -249,6 +416,12 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Out of Stock Modal */}
+      <OutOfStockModal 
+        isOpen={showOutOfStock}
+        onClose={() => setShowOutOfStock(false)}
+      />
     </>
   );
 };
