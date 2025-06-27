@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2 } from 'lucide-react';
+import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,11 +15,12 @@ const Index = () => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
       name: 'Bluu Hidratação Melancia',
-      price: 89.90,
+      price: 59.90,
       originalPrice: 179.90,
       quantity: 2,
       image: '/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png'
@@ -62,6 +63,17 @@ const Index = () => {
   };
 
   const handleAddToCart = () => {
+    // Update cart with selected quantity
+    const newItem = {
+      id: Date.now(),
+      name: 'Bluu Hidratação Melancia',
+      price: 59.90,
+      originalPrice: 179.90,
+      quantity: quantity,
+      image: '/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png'
+    };
+    
+    setCartItems([newItem]);
     setIsCartOpen(true);
     toast({
       title: "Produto adicionado ao carrinho!",
@@ -83,17 +95,13 @@ const Index = () => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setIsCheckoutOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Bar */}
-      <div className="bg-[#A8D0E6] py-2 md:py-3">
-        <div className="container mx-auto text-center px-4">
-          <p className="text-xs md:text-sm font-medium text-gray-800">
-            FRETE GRÁTIS PARA TODO O BRASIL NAS COMPRAS ACIMA DE R$ 199,90
-          </p>
-        </div>
-      </div>
-
       {/* Header */}
       <header className="border-b border-gray-100">
         <div className="container mx-auto max-w-6xl px-4 py-3 md:py-4">
@@ -131,13 +139,16 @@ const Index = () => {
               >
                 FAQ
               </button>
-              <button 
-                onClick={() => scrollToSection('newsletter')}
-                className="text-gray-700 hover:text-[#D1447D] transition-colors"
-              >
-                Blog
-              </button>
             </nav>
+
+            {/* Mobile menu button */}
+            <button className="md:hidden p-2">
+              <div className="w-6 h-6 flex flex-col justify-center space-y-1">
+                <div className="w-full h-0.5 bg-gray-700"></div>
+                <div className="w-full h-0.5 bg-gray-700"></div>
+                <div className="w-full h-0.5 bg-gray-700"></div>
+              </div>
+            </button>
           </div>
         </div>
       </header>
@@ -146,31 +157,8 @@ const Index = () => {
       <section id="hero" className="py-8 md:py-16 bg-gradient-to-br from-blue-50 to-pink-50">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            {/* Product Images */}
-            <div className="relative order-2 md:order-1">
-              <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-2xl md:rounded-3xl p-4 md:p-8">
-                <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
-                  <img 
-                    src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
-                    alt="Pessoa feliz segurando copo com Bluu" 
-                    className="w-full rounded-xl md:rounded-2xl object-cover"
-                  />
-                  <img 
-                    src="/lovable-uploads/05e1589c-4d0f-4d71-8f95-691254a15e3e.png" 
-                    alt="Copo com Bluu melancia na beira da piscina com fatias de melancia" 
-                    className="w-full rounded-xl md:rounded-2xl object-cover"
-                  />
-                </div>
-                <img 
-                  src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
-                  alt="Bluu Hidratação Melancia - Caixa do produto com melancia e cubos de gelo" 
-                  className="w-full max-w-xs md:max-w-md mx-auto drop-shadow-2xl"
-                />
-              </div>
-            </div>
-
             {/* Product Info */}
-            <div className="space-y-4 md:space-y-6 order-1 md:order-2">
+            <div className="space-y-4 md:space-y-6 order-1">
               <div>
                 <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 leading-tight">
                   Bluu Hidratação Saborizada – Melancia
@@ -184,9 +172,33 @@ const Index = () => {
                   <span className="text-xs md:text-sm text-gray-600">4,9 (128 avaliações)</span>
                 </div>
                 <div className="flex items-center space-x-3 md:space-x-4 mb-3 md:mb-4">
-                  <span className="text-2xl md:text-3xl font-bold text-[#D1447D]">R$ 89,90</span>
+                  <span className="text-2xl md:text-3xl font-bold text-[#D1447D]">R$ 59,90</span>
                   <Badge variant="secondary" className="text-xs">12 porções</Badge>
                 </div>
+
+                {/* Mobile Product Images - Between price and description */}
+                <div className="md:hidden mb-4">
+                  <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-2xl p-4">
+                    <div className="grid grid-cols-2 gap-3 mb-4">
+                      <img 
+                        src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
+                        alt="Pessoa feliz segurando copo com Bluu" 
+                        className="w-full rounded-xl object-cover"
+                      />
+                      <img 
+                        src="/lovable-uploads/05e1589c-4d0f-4d71-8f95-691254a15e3e.png" 
+                        alt="Copo com Bluu melancia na beira da piscina com fatias de melancia" 
+                        className="w-full rounded-xl object-cover"
+                      />
+                    </div>
+                    <img 
+                      src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
+                      alt="Bluu Hidratação Melancia - Caixa do produto com melancia e cubos de gelo" 
+                      className="w-full max-w-xs mx-auto drop-shadow-2xl"
+                    />
+                  </div>
+                </div>
+
                 <p className="text-sm md:text-base text-gray-600 mb-3 md:mb-4 leading-relaxed">
                   Transforme qualquer 500 ml de água em uma explosão refrescante sem adição de açúcar ou ingredientes artificiais. Rica em vitamina C antioxidante e sem glúten.
                 </p>
@@ -262,6 +274,29 @@ const Index = () => {
                 </Button>
               </div>
             </div>
+
+            {/* Product Images - Desktop Only */}
+            <div className="relative order-2 hidden md:block">
+              <div className="bg-gradient-to-br from-[#A8D0E6]/20 to-[#F3C4EB]/20 rounded-2xl md:rounded-3xl p-4 md:p-8">
+                <div className="grid grid-cols-2 gap-3 md:gap-4 mb-4 md:mb-6">
+                  <img 
+                    src="/lovable-uploads/1bf3f521-13ce-492f-bdbd-2c96df966c1a.png" 
+                    alt="Pessoa feliz segurando copo com Bluu" 
+                    className="w-full rounded-xl md:rounded-2xl object-cover"
+                  />
+                  <img 
+                    src="/lovable-uploads/05e1589c-4d0f-4d71-8f95-691254a15e3e.png" 
+                    alt="Copo com Bluu melancia na beira da piscina com fatias de melancia" 
+                    className="w-full rounded-xl md:rounded-2xl object-cover"
+                  />
+                </div>
+                <img 
+                  src="/lovable-uploads/991f1e9c-a9bd-44c6-8a2d-55d906b74e95.png" 
+                  alt="Bluu Hidratação Melancia - Caixa do produto com melancia e cubos de gelo" 
+                  className="w-full max-w-xs md:max-w-md mx-auto drop-shadow-2xl"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Lead Capture */}
@@ -294,7 +329,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How to Use Section - Transforme água em Bluu */}
+      {/* How to Use Section */}
       <section id="how-to-use" className="py-12 md:py-20 bg-white">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
@@ -402,26 +437,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {/* Card 1 - Troque o Refrigerante */}
-            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
-              <div className="aspect-[4/3] overflow-hidden">
-                <img 
-                  src="/lovable-uploads/80f3bea2-f9e8-4ed6-8d03-8cfdf1b18e3b.png"
-                  alt="Copo alto com água com gás, cubos de gelo e Bluu efervescente"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <CardContent className="p-4 md:p-6">
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
-                  Troque o Refrigerante
-                </h3>
-                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-                  Misture Bluu na água com gás. Uma alternativa incrivelmente saborosa e saudável para evitar o refrigerante...
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Card 2 - Drinks & Mocktails */}
+            {/* Card 1 - Drinks & Mocktails */}
             <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
               <div className="aspect-[4/3] overflow-hidden">
                 <img 
@@ -436,6 +452,25 @@ const Index = () => {
                 </h3>
                 <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                   Crie coquetéis sem culpa e surpreenda os amigos com cores naturais, refrescância e baixa calorias.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Card 2 - Troque o Refrigerante */}
+            <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-white/80 backdrop-blur-sm">
+              <div className="aspect-[4/3] overflow-hidden">
+                <img 
+                  src="/lovable-uploads/80f3bea2-f9e8-4ed6-8d03-8cfdf1b18e3b.png"
+                  alt="Copo alto com água com gás, cubos de gelo e Bluu efervescente"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <CardContent className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-3">
+                  Troque o Refrigerante
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                  Misture Bluu na água com gás. Uma alternativa incrivelmente saborosa e saudável para evitar o refrigerante...
                 </p>
               </CardContent>
             </Card>
@@ -517,7 +552,7 @@ const Index = () => {
             Bluu é citado em +1.000 reviews 5★ como "o empurrãozinho perfeito para beber água".
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
             {[
               { 
                 name: 'Paula Silva', 
@@ -554,8 +589,8 @@ const Index = () => {
               }
             ].map((person, index) => (
               <Card key={index} className={`relative overflow-hidden ${person.bg} ${person.border} border-2 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1`}>
-                <CardContent className="p-4 md:p-8">
-                  <div className="absolute top-3 right-3 md:top-4 md:right-4">
+                <CardContent className="p-3 md:p-8">
+                  <div className="absolute top-2 right-2 md:top-4 md:right-4">
                     {person.verified && (
                       <div className="flex items-center space-x-1 bg-green-500 text-white px-2 md:px-3 py-1 rounded-full">
                         <CheckCircle className="w-2 h-2 md:w-3 md:h-3" />
@@ -564,20 +599,20 @@ const Index = () => {
                     )}
                   </div>
                   
-                  <div className="text-3xl md:text-5xl mb-4 md:mb-6">{person.emoji}</div>
+                  <div className="text-2xl md:text-5xl mb-3 md:mb-6">{person.emoji}</div>
                   
-                  <div className="flex items-center justify-center mb-4 md:mb-6">
+                  <div className="flex items-center justify-center mb-3 md:mb-6">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 md:w-6 md:h-6 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-3 h-3 md:w-6 md:h-6 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
                   
-                  <p className="text-gray-700 mb-4 md:mb-6 italic leading-relaxed text-sm md:text-lg font-medium">
+                  <p className="text-gray-700 mb-3 md:mb-6 italic leading-relaxed text-xs md:text-lg font-medium">
                     "{person.review}"
                   </p>
                   
-                  <div className="border-t pt-4 md:pt-6">
-                    <p className="font-bold text-gray-900 text-base md:text-lg">{person.name}</p>
+                  <div className="border-t pt-3 md:pt-6">
+                    <p className="font-bold text-gray-900 text-sm md:text-lg">{person.name}</p>
                     <p className="text-xs md:text-sm text-gray-600 font-medium">{person.location}</p>
                     <p className="text-xs text-gray-500 mt-1 md:mt-2">{person.context} • {person.date}</p>
                   </div>
@@ -732,35 +767,14 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 md:py-12">
         <div className="container mx-auto max-w-6xl px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            <div className="sm:col-span-2 md:col-span-1">
-              <div className="text-xl md:text-2xl font-bold text-[#D1447D] mb-3 md:mb-4">Bluu</div>
-              <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                Hidratação saborizada that transforma sua relação com a água.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Produtos</h3>
-              <ul className="space-y-1 md:space-y-2 text-gray-400 text-sm md:text-base">
-                <li><a href="#" className="hover:text-white">Melancia</a></li>
-                <li><a href="#" className="hover:text-white">Em breve</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Suporte</h3>
-              <ul className="space-y-1 md:space-y-2 text-gray-400 text-sm md:text-base">
-                <li><a href="#" className="hover:text-white">FAQ</a></li>
-                <li><a href="#" className="hover:text-white">Contato</a></li>
-                <li><a href="#" className="hover:text-white">Trocas e Devoluções</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3 md:mb-4 text-sm md:text-base">Empresa</h3>
-              <ul className="space-y-1 md:space-y-2 text-gray-400 text-sm md:text-base">
-                <li><a href="#" className="hover:text-white">Sobre</a></li>
-                <li><a href="#" className="hover:text-white">Blog</a></li>
-                <li><a href="#" className="hover:text-white">Carreiras</a></li>
-              </ul>
+          <div className="text-center space-y-6">
+            <div className="text-xl md:text-2xl font-bold text-[#D1447D]">Bluu</div>
+            <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-md mx-auto">
+              Hidratação saborizada que transforma sua relação com a água.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm">
+              <a href="#" className="hover:text-white transition-colors">Política de Privacidade</a>
+              <a href="#" className="hover:text-white transition-colors">Termos de Uso</a>
             </div>
           </div>
           <div className="border-t border-gray-800 pt-6 md:pt-8 mt-6 md:mt-8 text-center text-gray-400 text-sm md:text-base">
@@ -779,7 +793,7 @@ const Index = () => {
                 variant="ghost" 
                 size="sm" 
                 onClick={() => setIsCartOpen(false)}
-                className="p-0 h-auto"
+                className="p-1 h-auto hover:bg-gray-100 rounded-full"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -811,7 +825,7 @@ const Index = () => {
                       R$ {item.price.toFixed(2)}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600">2 Unidades</p>
+                  <p className="text-xs text-gray-600">{item.quantity} {item.quantity > 1 ? 'Unidades' : 'Unidade'}</p>
                 </div>
                 <div className="flex items-center space-x-1 md:space-x-2">
                   <Button
@@ -849,7 +863,10 @@ const Index = () => {
                 <span className="font-bold text-base md:text-lg">R$ {getSubtotal().toFixed(2)}</span>
               </div>
               
-              <Button className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-2 md:py-3 text-sm md:text-base">
+              <Button 
+                onClick={handleCheckout}
+                className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-2 md:py-3 text-sm md:text-base"
+              >
                 FINALIZAR COMPRA
               </Button>
               
@@ -858,9 +875,109 @@ const Index = () => {
                 className="w-full mt-2 text-sm md:text-base"
                 onClick={() => setIsCartOpen(false)}
               >
-                ADICIONAR AO CARRINHO
+                CONTINUAR COMPRANDO
               </Button>
             </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Checkout Modal */}
+      <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
+        <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center justify-between">
+              <span className="text-lg font-bold">Finalizar Compra</span>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setIsCheckoutOpen(false)}
+                className="p-1 h-auto hover:bg-gray-100 rounded-full"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            {/* Order Summary */}
+            <div className="bg-gray-50 rounded-lg p-4">
+              <h3 className="font-semibold mb-3">Resumo do Pedido</h3>
+              {cartItems.map((item) => (
+                <div key={item.id} className="flex justify-between items-center mb-2">
+                  <span className="text-sm">{item.name} x{item.quantity}</span>
+                  <span className="font-medium">R$ {(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+              ))}
+              <div className="border-t pt-2 mt-2">
+                <div className="flex justify-between items-center font-bold">
+                  <span>Total</span>
+                  <span>R$ {getSubtotal().toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Personal Information */}
+            <div className="space-y-4">
+              <h3 className="font-semibold">Dados Pessoais</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input placeholder="Nome completo" />
+                <Input placeholder="CPF" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input placeholder="E-mail" type="email" />
+                <Input placeholder="Telefone" />
+              </div>
+            </div>
+
+            {/* Address */}
+            <div className="space-y-4">
+              <h3 className="font-semibold">Endereço de Entrega</h3>
+              <Input placeholder="CEP" />
+              <Input placeholder="Endereço" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input placeholder="Número" />
+                <Input placeholder="Complemento" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input placeholder="Bairro" />
+                <Input placeholder="Cidade" />
+              </div>
+              <Input placeholder="Estado" />
+            </div>
+
+            {/* Payment Method */}
+            <div className="space-y-4">
+              <h3 className="font-semibold">Forma de Pagamento</h3>
+              <div className="space-y-3">
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input type="radio" name="payment" value="credit" className="text-[#D1447D]" defaultChecked />
+                  <CreditCard className="w-4 h-4" />
+                  <span>Cartão de Crédito</span>
+                </label>
+                <label className="flex items-center space-x-2 cursor-pointer">
+                  <input type="radio" name="payment" value="pix" className="text-[#D1447D]" />
+                  <span className="text-lg">💳</span>
+                  <span>PIX</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Credit Card Form */}
+            <div className="space-y-4">
+              <h4 className="font-medium">Dados do Cartão</h4>
+              <Input placeholder="Número do cartão" />
+              <div className="grid grid-cols-2 gap-4">
+                <Input placeholder="MM/AA" />
+                <Input placeholder="CVV" />
+              </div>
+              <Input placeholder="Nome no cartão" />
+            </div>
+
+            {/* Submit Button */}
+            <Button className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-3">
+              FINALIZAR PEDIDO
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
