@@ -15,7 +15,9 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, total }) => {
-  const subtotal = total - 9.72; // Fixed shipping value
+  const shipping = 9.72;
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const finalTotal = subtotal + shipping;
 
   return (
     <>
@@ -35,7 +37,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, total }) => {
           </div>
           <div className="flex justify-between items-center text-sm">
             <span>Frete</span>
-            <span>R$ 9,72</span>
+            <span>R$ {shipping.toFixed(2)}</span>
           </div>
           <div className="flex justify-between items-center text-sm">
             <span>Taxas</span>
@@ -43,7 +45,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, total }) => {
           </div>
           <div className="flex justify-between items-center font-bold text-lg pt-2 border-t">
             <span>Total</span>
-            <span>R$ {total.toFixed(2)}</span>
+            <span>R$ {finalTotal.toFixed(2)}</span>
           </div>
         </div>
       </div>
