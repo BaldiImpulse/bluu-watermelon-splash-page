@@ -110,7 +110,7 @@ const Index = () => {
 
   const getShipping = () => {
     const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
-    return totalQuantity >= 2 ? 0 : 10.90;
+    return totalQuantity >= 2 ? 0 : 9.72;
   };
 
   const getTotalWithShipping = () => {
