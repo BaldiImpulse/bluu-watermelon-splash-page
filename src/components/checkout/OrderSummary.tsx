@@ -15,7 +15,7 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems, total }) => {
-  const shipping = 10.90;
+  const shipping = 9.72;
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const finalTotal = subtotal + shipping;
 
