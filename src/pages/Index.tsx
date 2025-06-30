@@ -1,12 +1,13 @@
 
 import React, { useState } from 'react';
-import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2, CreditCard, Menu } from 'lucide-react';
+import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2, CreditCard, Menu, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { toast } from '@/hooks/use-toast';
 import Checkout from '@/components/Checkout';
 
@@ -18,6 +19,7 @@ const Index = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNutritionalInfoOpen, setIsNutritionalInfoOpen] = useState(false);
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
@@ -715,46 +717,65 @@ const Index = () => {
       {/* Nutritional Info */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-8 md:mb-12">
-            Informação Nutricional
-          </h2>
           <div className="flex justify-center">
-            <Card className="max-w-md border-2 border-[#D3EAF9]" style={{ maxWidth: '480px' }}>
-              <CardContent className="p-4 md:p-6">
-                <h3 className="font-bold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Por porção (500ml):</h3>
-                <div className="space-y-1 md:space-y-2" style={{ fontSize: '12px' }}>
-                  <div className="flex justify-between">
-                    <span>Calorias</span>
-                    <span className="font-semibold">0 kcal</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Carboidratos</span>
-                    <span className="font-semibold">1,3 g</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Açúcar</span>
-                    <span className="font-semibold">0 g</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sódio</span>
-                    <span className="font-semibold">22 mg</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Potássio</span>
-                    <span className="font-semibold">65 mg</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Vitamina C</span>
-                    <span className="font-semibold">30 mg</span>
-                  </div>
-                </div>
-                <div className="mt-4 md:mt-6 pt-3 md:pt-4 border-t">
-                  <p style={{ fontSize: '12px', color: '#666' }}>
-                    <strong>Ingredientes naturais:</strong> fibras de tapioca, aroma natural de melancia, sucralose, corante de beterraba. <strong>NÃO CONTÉM GLÚTEN.</strong>
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="max-w-md w-full">
+              <Collapsible open={isNutritionalInfoOpen} onOpenChange={setIsNutritionalInfoOpen}>
+                <CollapsibleTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    className="w-full flex items-center justify-between p-6 h-auto border-2 border-[#D3EAF9] hover:bg-[#D3EAF9]/20"
+                  >
+                    <span className="text-lg md:text-xl font-bold text-gray-900">
+                      Informação Nutricional
+                    </span>
+                    {isNutritionalInfoOpen ? (
+                      <ChevronUp className="h-5 w-5 text-gray-600" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-gray-600" />
+                    )}
+                  </Button>
+                </CollapsibleTrigger>
+                
+                <CollapsibleContent className="mt-4">
+                  <Card className="border-2 border-[#D3EAF9]">
+                    <CardContent className="p-4 md:p-6">
+                      <h3 className="font-bold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Por porção (500ml):</h3>
+                      <div className="space-y-1 md:space-y-2" style={{ fontSize: '12px' }}>
+                        <div className="flex justify-between">
+                          <span>Calorias</span>
+                          <span className="font-semibold">0 kcal</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Carboidratos</span>
+                          <span className="font-semibold">1,3 g</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Açúcar</span>
+                          <span className="font-semibold">0 g</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Sódio</span>
+                          <span className="font-semibold">22 mg</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Potássio</span>
+                          <span className="font-semibold">65 mg</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Vitamina C</span>
+                          <span className="font-semibold">30 mg</span>
+                        </div>
+                      </div>
+                      <div className="mt-4 md:mt-6 pt-3 md:pt-4 border-t">
+                        <p style={{ fontSize: '12px', color: '#666' }}>
+                          <strong>Ingredientes naturais:</strong> fibras de tapioca, aroma natural de melancia, sucralose, corante de beterraba. <strong>NÃO CONTÉM GLÚTEN.</strong>
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CollapsibleContent>
+              </Collapsible>
+            </div>
           </div>
         </div>
       </section>
