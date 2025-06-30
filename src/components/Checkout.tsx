@@ -1,7 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
 import CheckoutHeader from './checkout/CheckoutHeader';
 import TrustIndicators from './checkout/TrustIndicators';
 import OrderSummary from './checkout/OrderSummary';
@@ -33,6 +33,8 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
   const [paymentMethod, setPaymentMethod] = useState('credit');
   const [showPixConfirmation, setShowPixConfirmation] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const { toast } = useToast();
   
   // Form fields state
   const [formData, setFormData] = useState({
@@ -90,10 +92,76 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
     return true;
   };
 
-  const handlePixGeneration = () => {
+  const sendToWebhook = async (orderData: any) => {
+    try {
+      const response = await fetch('https://webhook.beimpulse-flow.com/webhook/459753ec-8192-4328-a208-fa37f3c7a07b', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'no-cors',
+        body: JSON.stringify(orderData),
+      });
+
+      console.log('Dados enviados para webhook:', orderData);
+      
+      toast({
+        title: "Pedido enviado!",
+        description: "Suas informações foram processadas com sucesso.",
+      });
+    } catch (error) {
+      console.error('Erro ao enviar para webhook:', error);
+      toast({
+        title: "Pedido processado",
+        description: "Seu pedido foi registrado e será processado em breve.",
+      });
+    }
+  };
+
+  const prepareOrderData = () => {
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const finalTotal = subtotal + shipping;
+    
+    return {
+      timestamp: new Date().toISOString(),
+      customer: {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+      },
+      address: {
+        cep: formData.cep,
+        address: formData.address,
+        number: formData.number,
+        complement: formData.complement,
+        city: formData.city,
+        state: formData.state,
+      },
+      order: {
+        items: cartItems.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          total: item.price * item.quantity
+        })),
+        subtotal: subtotal,
+        shipping: shipping,
+        total: finalTotal,
+        paymentMethod: paymentMethod,
+      }
+    };
+  };
+
+  const handlePixGeneration = async () => {
     if (!validateForm()) {
       return;
     }
+    
+    setIsProcessing(true);
+    const orderData = prepareOrderData();
+    await sendToWebhook(orderData);
+    setIsProcessing(false);
     setShowPixConfirmation(true);
   };
 
@@ -102,10 +170,15 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
     window.location.href = '/obrigado';
   };
 
-  const handleFinalizarPedido = () => {
+  const handleFinalizarPedido = async () => {
     if (!validateForm()) {
       return;
     }
+    
+    setIsProcessing(true);
+    const orderData = prepareOrderData();
+    await sendToWebhook(orderData);
+    setIsProcessing(false);
     window.location.href = '/obrigado';
   };
 
@@ -168,8 +241,9 @@ const Checkout: React.FC<CheckoutProps> = ({ isOpen, onClose, cartItems, total, 
             <Button 
               onClick={paymentMethod === 'pix' ? handlePixGeneration : handleFinalizarPedido}
               className="w-full bg-[#D1447D] hover:bg-[#B13A6B] text-white font-bold py-3"
+              disabled={isProcessing}
             >
-              {paymentMethod === 'pix' ? 'GERAR PIX' : 'FINALIZAR PEDIDO'}
+              {isProcessing ? 'PROCESSANDO...' : (paymentMethod === 'pix' ? 'GERAR PIX' : 'FINALIZAR PEDIDO')}
             </Button>
 
             <CheckoutGuarantee />
