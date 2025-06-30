@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Star, Search, User, Droplets, ShoppingBag, MapPin, Zap, Sun, Snowflake, CheckCircle, Play, X, Plus, Minus, Trash2, CreditCard, Menu, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -39,6 +38,28 @@ const Index = () => {
     { id: 'tropical', name: 'Frutas Tropicais', available: false }
   ];
 
+  const sendEmailToWebhook = async (email: string, source: string) => {
+    try {
+      const response = await fetch('https://webhook.beimpulse-flow.com/webhook/58d93ee1-4517-425f-95c6-997e6444b798', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'no-cors',
+        body: JSON.stringify({
+          email: email,
+          source: source,
+          timestamp: new Date().toISOString(),
+          page: 'landing-page'
+        }),
+      });
+      
+      console.log('Email enviado para webhook:', { email, source });
+    } catch (error) {
+      console.error('Erro ao enviar email para webhook:', error);
+    }
+  };
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -47,8 +68,9 @@ const Index = () => {
     setIsMobileMenuOpen(false);
   };
 
-  const handleNotifyMe = () => {
+  const handleNotifyMe = async () => {
     if (email) {
+      await sendEmailToWebhook(email, 'quero-ser-avisado');
       toast({
         title: "🎉 Obrigado! Você será o primeiro a saber.",
         description: "Te avisaremos assim que os novos sabores chegarem.",
@@ -57,8 +79,9 @@ const Index = () => {
     }
   };
 
-  const handleNewsletter = () => {
+  const handleNewsletter = async () => {
     if (newsletterEmail) {
+      await sendEmailToWebhook(newsletterEmail, 'universo-bluu');
       toast({
         title: "Bem-vindo ao universo Bluu!",
         description: "Você ganhou 10% de desconto na primeira compra.",
