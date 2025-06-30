@@ -8,9 +8,32 @@ const Obrigado = () => {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const sendRestockEmailToWebhook = async (email: string) => {
+    try {
+      const response = await fetch('https://webhook.beimpulse-flow.com/webhook/4dafdc74-be85-4737-8743-2b031e6f62a8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        mode: 'no-cors',
+        body: JSON.stringify({
+          email: email,
+          source: 'restock-notification',
+          timestamp: new Date().toISOString(),
+          page: 'obrigado-page'
+        }),
+      });
+      
+      console.log('Email de reestoque enviado para webhook:', { email, source: 'restock-notification' });
+    } catch (error) {
+      console.error('Erro ao enviar email de reestoque para webhook:', error);
+    }
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      await sendRestockEmailToWebhook(email);
       setIsSubmitted(true);
       // Aqui você pode adicionar a lógica para salvar o email
       console.log('Email para notificação:', email);
