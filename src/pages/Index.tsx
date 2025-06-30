@@ -762,36 +762,63 @@ const Index = () => {
                 <CollapsibleContent className="mt-4">
                   <Card className="border-2 border-[#D3EAF9]">
                     <CardContent className="p-4 md:p-6">
-                      <h3 className="font-bold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Por porção (500ml):</h3>
+                      <h3 className="font-bold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Porção de 2 g (1 cubo):</h3>
+                      
+                      <div className="mb-4 p-3 bg-blue-50 rounded-lg">
+                        <p className="text-sm font-medium text-blue-800 text-center">
+                          💧 <strong>Como usar:</strong> Dissolver 1 cubo (≈2 g) em 400–600 ml de água.
+                        </p>
+                      </div>
+
                       <div className="space-y-1 md:space-y-2" style={{ fontSize: '12px' }}>
                         <div className="flex justify-between">
-                          <span>Calorias</span>
-                          <span className="font-semibold">0 kcal</span>
+                          <span>Valor energético</span>
+                          <span className="font-semibold">0 kcal = 0 kJ</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Carboidratos</span>
-                          <span className="font-semibold">1,3 g</span>
+                          <span className="font-semibold">0 g</span>
                         </div>
                         <div className="flex justify-between">
-                          <span>Açúcar</span>
+                          <span>Proteínas</span>
+                          <span className="font-semibold">0 g</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Gorduras totais</span>
+                          <span className="font-semibold">0 g</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Gorduras saturadas</span>
+                          <span className="font-semibold">0 g</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Gorduras trans</span>
+                          <span className="font-semibold">0 g</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Fibra alimentar</span>
                           <span className="font-semibold">0 g</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Sódio</span>
-                          <span className="font-semibold">22 mg</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Potássio</span>
-                          <span className="font-semibold">65 mg</span>
+                          <span className="font-semibold">25 mg</span>
                         </div>
                         <div className="flex justify-between">
                           <span>Vitamina C</span>
-                          <span className="font-semibold">30 mg</span>
+                          <span className="font-semibold">45 mg</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Vitamina B1 (Tiamina)</span>
+                          <span className="font-semibold">1,2 mg</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Vitamina B12 (Cianocobalamina)</span>
+                          <span className="font-semibold">2,4 µg</span>
                         </div>
                       </div>
                       <div className="mt-4 md:mt-6 pt-3 md:pt-4 border-t">
                         <p style={{ fontSize: '12px', color: '#666' }}>
-                          <strong>Ingredientes naturais:</strong> fibras de tapioca, aroma natural de melancia, sucralose, corante de beterraba. <strong>NÃO CONTÉM GLÚTEN.</strong>
+                          <strong>Ingredientes:</strong> acidulante e reguladores de acidez (carbonato de sódio, carbonato de magnésio, carbonato de cálcio, ácido cítrico), aroma natural de melancia, aroma natural de pepino, extrato de pepino liofilizado, edulcorante: glicosídeos de esteviol (stevia), vitamina C (ácido ascórbico), vitamina B1 (tiamina mononitrato), vitamina B12 (cianocobalamina), corante natural: antocianinas. <strong>NÃO CONTÉM GLÚTEN.</strong>
                         </p>
                       </div>
                     </CardContent>
